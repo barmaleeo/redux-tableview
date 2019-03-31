@@ -1,0 +1,127 @@
+div.table-view-outher{
+  display:flex;
+  height: calc(100% - 40px);
+  >div.tv-table{
+    overflow-y: auto;
+    padding-right: 10px;
+    position:relative;
+    flex:1;
+
+    tbody {
+      tr {
+        div.tv-r-actions {
+          display: flex;
+          align-items: center;
+          >*:not(:last-child) {
+            margin-right: 5px;
+          }
+        }
+        td.tv-r-checker {
+          min-width: 25px;
+          text-align: center;
+        }
+        &:hover{
+          background-color: #eeeeee;
+        }
+      }
+    }
+  }
+
+
+  >div.tv-right-panel{
+    width:300px;
+    padding:0 5px;
+    >fieldset{
+      border: 1px solid #ccc;
+      padding: 4px;
+      margin-bottom: 10px;
+      >legend{
+        font-size: 14px;
+        width: initial;
+        margin-left: 5px;
+        padding-left: 5px;
+        padding-right: 5px;
+        margin-bottom: 0;
+        border: 0;
+      }
+      >input.tv-rp-limit{
+        width: 100%;
+        text-align: right;
+        padding-right: 2px;
+        padding-left: 2px;
+      }
+      div.filter-container{
+        display:flex;
+        width: 280px;
+        input.filter-on {
+          flex:1 0 20px;
+          max-width: 20px;
+          height: 20px;
+          vertical-align: bottom;
+        }
+        select.filter-type{
+          flex:1 0 80px;
+          max-width: 80px;
+        }
+        select.filter-condition{
+          flex:1 0 40px;
+        }
+        .filter-input{
+          width: 100%;
+          text-align: right;
+          padding-right: 2px;
+          padding-left: 2px;
+        }
+      }
+      button{
+        margin-top:5px;
+      }
+    }
+  }
+
+  div.progress-loading-block{
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    background: rgba(1,1,1,0.4);
+    text-align: center;
+    vertical-align: middle;
+    font-size: 40px;
+    font-weight: bold;
+    color:#d2d2d2;
+    padding-top: 50px;
+    &.abs{
+      position: absolute;
+      top:0;
+    }
+  }
+  div.progress-loading-error {
+    width: 100%;
+    height: 100%;
+    background: white;
+  }
+}
+
+div.table-view-detail{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  div.tv-header{
+    input[type=checkbox]{
+      margin:0 5px;
+    }
+  }
+  div.tv-body{
+    flex:1;
+  }
+  div.tv-detail-progress{
+    position: fixed;
+    top:  0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(1,1,1,0.2);
+    z-index: 10000000;
+  }
+
+}
