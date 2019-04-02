@@ -2,8 +2,8 @@
   "name": "redux-tableview",
   "version": "0.1.0",
   "private": true,
-  "main": "dist/index.js",
-  "module": "dist/index.js",
+  "main": "dist/TableViewComponent.js",
+  "module": "dist/TableViewComponent.js",
   "files": [
     "dist"
   ],
