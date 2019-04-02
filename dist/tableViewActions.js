@@ -1,6 +1,25 @@
-import * as TV from './tableViewConstants'; //import {cDate, mysqld} from './dateHelper'
+"use strict";
 
-export function closeDetail(entity) {
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.closeDetail = closeDetail;
+exports.setCustom = setCustom;
+exports.loadDetail = loadDetail;
+exports.changeLimit = changeLimit;
+exports.setFilterActive = setFilterActive;
+exports.setFilterCond = setFilterCond;
+exports.setFilterType = setFilterType;
+exports.setFilterValue = setFilterValue;
+exports.setChecked = setChecked;
+exports.reload = reload;
+
+var TV = _interopRequireWildcard(require("./tableViewConstants"));
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+//import {cDate, mysqld} from './dateHelper'
+function closeDetail(entity) {
   return {
     type: TV.TABLEVIEW_CLOSE_DETAIL,
     payload: {
@@ -8,7 +27,8 @@ export function closeDetail(entity) {
     }
   };
 }
-export function setCustom(entity, id) {
+
+function setCustom(entity, id) {
   return {
     type: TV.TABLEVIEW_CLOSE_DETAIL,
     payload: {
@@ -17,9 +37,11 @@ export function setCustom(entity, id) {
     }
   };
 }
-export function loadDetail(i, entity, root = 'office') {
-  return (dispatch, getState) => {
-    const mode = getState()[entity].detailMode;
+
+function loadDetail(i, entity) {
+  var root = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'office';
+  return function (dispatch, getState) {
+    var mode = getState()[entity].detailMode;
     dispatch({
       type: entity.toUpperCase() + '_LOAD_DETAIL_REQ',
       payload: {
@@ -53,7 +75,7 @@ export function loadDetail(i, entity, root = 'office') {
           }
         });
       }
-    }, 'json').fail(e => {
+    }, 'json').fail(function (e) {
       dispatch({
         type: entity.toUpperCase() + '_LOAD_DETAIL_ERR',
         payload: {
@@ -64,8 +86,9 @@ export function loadDetail(i, entity, root = 'office') {
     });
   };
 }
-export function changeLimit(entity, value) {
-  return (dispatch, getState) => {
+
+function changeLimit(entity, value) {
+  return function (dispatch, getState) {
     dispatch({
       type: TV.TABLEVIEW_SET_LIMIT,
       payload: {
@@ -76,8 +99,9 @@ export function changeLimit(entity, value) {
     saveFilterState(getState()[entity]);
   };
 }
-export function setFilterActive(entity, id, value) {
-  return (dispatch, getState) => {
+
+function setFilterActive(entity, id, value) {
+  return function (dispatch, getState) {
     dispatch({
       type: TV.TABLEVIEW_SET_FILTER_ACTIVE,
       payload: {
@@ -89,8 +113,9 @@ export function setFilterActive(entity, id, value) {
     saveFilterState(getState()[entity]);
   };
 }
-export function setFilterCond(entity, id, cond) {
-  return (dispatch, getState) => {
+
+function setFilterCond(entity, id, cond) {
+  return function (dispatch, getState) {
     dispatch({
       type: TV.TABLEVIEW_SET_FILTER_COND,
       payload: {
@@ -102,8 +127,9 @@ export function setFilterCond(entity, id, cond) {
     saveFilterState(getState()[entity]);
   };
 }
-export function setFilterType(entity, id, filter, type) {
-  return (dispatch, getState) => {
+
+function setFilterType(entity, id, filter, type) {
+  return function (dispatch, getState) {
     dispatch({
       type: TV.TABLEVIEW_SET_FILTER_TYPE,
       payload: {
@@ -116,8 +142,9 @@ export function setFilterType(entity, id, filter, type) {
     saveFilterState(getState()[entity]);
   };
 }
-export function setFilterValue(entity, id, value) {
-  return (dispatch, getState) => {
+
+function setFilterValue(entity, id, value) {
+  return function (dispatch, getState) {
     dispatch({
       type: TV.TABLEVIEW_SET_FILTER_VALUE,
       payload: {
@@ -129,7 +156,8 @@ export function setFilterValue(entity, id, value) {
     saveFilterState(getState()[entity]);
   };
 }
-export function setChecked(entity, id, checked) {
+
+function setChecked(entity, id, checked) {
   return {
     type: TV.TABLEVIEW_SET_ROW_CHECKED,
     payload: {
@@ -139,38 +167,60 @@ export function setChecked(entity, id, checked) {
     }
   };
 }
-export function reload(entity, filtersArray, limit, root = 'office') {
-  return (dispatch, getState) => {
-    const filters = [];
 
-    for (const f of filtersArray) {
-      if (f.active) {
-        const filter = {
-          type: f.token,
-          value: f.value,
-          condition: f.cond
-        };
+function reload(entity, filtersArray, limit) {
+  var root = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'office';
+  return function (dispatch, getState) {
+    var filters = [];
+    var _iteratorNormalCompletion = true;
+    var _didIteratorError = false;
+    var _iteratorError = undefined;
 
-        if (f.like === true) {
-          filter.like = true;
-        }
+    try {
+      for (var _iterator = filtersArray[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+        var f = _step.value;
 
-        if (f.having === true) {
-          filter.having = true;
-        }
+        if (f.active) {
+          var filter = {
+            type: f.token,
+            value: f.value,
+            condition: f.cond
+          };
 
-        if (f.date === true) {
-          filter.date = true;
-          const date = f.value.split('-');
-
-          if (date.length == 3) {
-            filter.value = date[2] + '-' + date[1] + '-' + date[0];
-          } else {
-            filter.value = f.value;
+          if (f.like === true) {
+            filter.like = true;
           }
-        }
 
-        filters.push(filter);
+          if (f.having === true) {
+            filter.having = true;
+          }
+
+          if (f.date === true) {
+            filter.date = true;
+            var date = f.value.split('-');
+
+            if (date.length == 3) {
+              filter.value = date[2] + '-' + date[1] + '-' + date[0];
+            } else {
+              filter.value = f.value;
+            }
+          }
+
+          filters.push(filter);
+        }
+      }
+    } catch (err) {
+      _didIteratorError = true;
+      _iteratorError = err;
+    } finally {
+      try {
+        if (!_iteratorNormalCompletion && _iterator.return != null) {
+          _iterator.return();
+        }
+      } finally {
+        if (_didIteratorError) {
+          throw _iteratorError;
+        }
       }
     }
 
@@ -201,7 +251,7 @@ export function reload(entity, filtersArray, limit, root = 'office') {
           }
         });
       }
-    }, 'json').fail(e => {
+    }, 'json').fail(function (e) {
       dispatch({
         type: TV.TABLEVIEW_RELOAD_ERR,
         payload: {
@@ -213,22 +263,42 @@ export function reload(entity, filtersArray, limit, root = 'office') {
   };
 }
 
-function saveFilterState(state, root = 'office') {
-  let config = [];
-  let i = 0;
+function saveFilterState(state) {
+  var root = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'office';
+  var config = [];
+  var i = 0;
+  var _iteratorNormalCompletion2 = true;
+  var _didIteratorError2 = false;
+  var _iteratorError2 = undefined;
 
-  for (const f of state.filters) {
-    let filter = {
-      filter: f.type,
-      active: f.active === true,
-      value: f.value
-    }; //filter.value = state.filterTypes[f.type].variants?state.filterTypes[f.type].variants[f.value].value:f.value;
+  try {
+    for (var _iterator2 = state.filters[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+      var f = _step2.value;
+      var filter = {
+        filter: f.type,
+        active: f.active === true,
+        value: f.value
+      }; //filter.value = state.filterTypes[f.type].variants?state.filterTypes[f.type].variants[f.value].value:f.value;
 
-    if (f.cond) {
-      filter.cond = f.cond;
+      if (f.cond) {
+        filter.cond = f.cond;
+      }
+
+      config.push(filter);
     }
-
-    config.push(filter);
+  } catch (err) {
+    _didIteratorError2 = true;
+    _iteratorError2 = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion2 && _iterator2.return != null) {
+        _iterator2.return();
+      }
+    } finally {
+      if (_didIteratorError2) {
+        throw _iteratorError2;
+      }
+    }
   }
 
   window.$.get(root + '/save-filter-state', {
