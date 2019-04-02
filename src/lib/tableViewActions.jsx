@@ -1,5 +1,5 @@
 
-import * as TV from './tableviewConstants'
+import * as TV from './tableViewConstants'
 
 //import {cDate, mysqld} from './dateHelper'
 

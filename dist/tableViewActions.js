@@ -1,4 +1,4 @@
-import * as TV from './tableviewConstants'; //import {cDate, mysqld} from './dateHelper'
+import * as TV from './tableViewConstants'; //import {cDate, mysqld} from './dateHelper'
 
 export function closeDetail(entity) {
   return {
