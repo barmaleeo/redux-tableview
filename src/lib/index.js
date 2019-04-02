@@ -1,3 +1,5 @@
+'use-strict';
+
 import tableViewActions from "./tableViewActions";
 import TableViewComponent from "./tableViewComponent";
 import tableViewReducer from "./tableViewReduser";
