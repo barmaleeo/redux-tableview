@@ -234,7 +234,7 @@ function tableViewReducer(name) {
               });
 
               if (fc.filter >= 0 && fc.filter < filterTypes.length && Array.isArray(filterTypes[fc.filter].variants) && filterTypes[fc.filter].variants.length > 0 && !(fc.value >= 0 && fc.value < filterTypes[fc.filter].variants.length)) {
-                _filter.value = filterTypes[fc.filter].variants[0];
+                _filter.value = filterTypes[fc.filter].variants[0].value;
               } else {
                 _filter.value = fc.value;
               }
@@ -290,7 +290,7 @@ function tableViewReducer(name) {
 
               if (_config.variants && Array.isArray(_config.variants) && _config.variants.length > 0) {
                 if (!(f.value >= 0 && f.value < _config.variants.length)) {
-                  f.value = _config.variants[0];
+                  f.value = _config.variants[0].value;
                 }
 
                 f.variants = _config.variants;

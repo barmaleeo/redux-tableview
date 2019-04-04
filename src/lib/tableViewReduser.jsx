@@ -154,7 +154,7 @@ export default function tableViewReducer(name, state = initialState, action, sel
                             !(fc.value >= 0 && fc.value < filterTypes[fc.filter].variants.length
                             )
                         ){
-                            filter.value = filterTypes[fc.filter].variants[0];
+                            filter.value = filterTypes[fc.filter].variants[0].value;
                         }else {
                             filter.value = fc.value;
                         }
@@ -187,7 +187,7 @@ export default function tableViewReducer(name, state = initialState, action, sel
                         }
                         if(config.variants && Array.isArray(config.variants) && config.variants.length > 0){
                             if(!(f.value >= 0 && f.value < config.variants.length)){
-                                f.value = config.variants[0];
+                                f.value = config.variants[0].value;
                             }
                             f.variants = config.variants;
                         }else if(config.date){
