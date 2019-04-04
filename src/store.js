@@ -4,7 +4,7 @@ import {applyMiddleware, compose, createStore} from "redux";
 import thunk from "redux-thunk";
 import {createLogger} from "redux-logger";
 import DevTools from './DevTools.jsx'
-//import * as initActions from './lib/tableViewActions'
+import * as initActions from './initActions'
 
 
 export default function configureStore(initialState) {
@@ -13,7 +13,7 @@ export default function configureStore(initialState) {
         compose(applyMiddleware(thunk, logger), DevTools.instrument())
     );
 
-    //store.dispatch(initActions.init());
+    store.dispatch(initActions.init());
 
     // console.log('configure store entering');
     // if (module.hot) {

@@ -58,7 +58,7 @@ function loadDetail(i, entity) {
       id: i.id,
       mode: mode
     }, function (r) {
-      if (r.status == 'ok') {
+      if (r.status === 'ok') {
         dispatch({
           type: entity.toUpperCase() + '_LOAD_DETAIL_DONE',
           payload: {
@@ -197,9 +197,9 @@ function reload(entity, filtersArray, limit) {
 
           if (f.date === true) {
             filter.date = true;
-            var date = f.value.split('-');
+            var date = f.value.split('.');
 
-            if (date.length == 3) {
+            if (date.length === 3) {
               filter.value = date[2] + '-' + date[1] + '-' + date[0];
             } else {
               filter.value = f.value;
@@ -234,7 +234,7 @@ function reload(entity, filtersArray, limit) {
       filters: filters,
       limit: limit
     }, function (r) {
-      if (r.status == 'ok') {
+      if (r.status === 'ok') {
         dispatch({
           type: TV.TABLEVIEW_RELOAD_DONE,
           payload: {
@@ -265,8 +265,8 @@ function reload(entity, filtersArray, limit) {
 
 function saveFilterState(state) {
   var root = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'office';
-  var config = [];
-  var i = 0;
+  var config = []; //let i = 0;
+
   var _iteratorNormalCompletion2 = true;
   var _didIteratorError2 = false;
   var _iteratorError2 = undefined;

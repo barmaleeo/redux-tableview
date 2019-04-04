@@ -29,9 +29,9 @@ const initialState = {
     filterTypes:filterTypes,
     filters:[
         {type:1},
-        {type:2},
-        {type:3},
-        {type:3},
+        {type:2, active:true},
+        {type:5},
+        {type:14, active:true},
     ]
 };
 

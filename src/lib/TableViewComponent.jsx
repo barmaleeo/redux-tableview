@@ -8,14 +8,15 @@ export default class TableViewComponent extends Component{
     componentDidMount(){
         console.log(this.config.entity + ' did mount', this.props);
         //this.props.tva.loadDetail({id:this.reload}, this.config.entity, this.config.root)
-        this.reload();
+        //xthis.reload();
     }
     componentWillReceiveProps(p){
         console.log(this.config.entity + ' will receive props');
 
-        // if(!this.props.entity.init && p.entity.init){
-        //     this.reload();
-        // }
+         if(!this.props.init.init && p.init.init){
+             console.log('tableview Reload!!!');
+             this.reload();
+         }
     };
     componentWillMount(){
         console.log(this.config.entity + ' will mount', this.props);
@@ -76,7 +77,7 @@ export default class TableViewComponent extends Component{
     };
     render(){
         const e = this.props.entity;
-        if(e==undefined){
+        if(e === undefined){
             return null;
         }
         if(e && e.showCustom){
@@ -96,6 +97,7 @@ export default class TableViewComponent extends Component{
                     {e.selectedItem && (e.selectedItem.loading || e.loadDetail) && <div className="tv-detail-progress"/>}
                 </div>)
         }
+        const limit = (e.limit?e.limit:0);
         return(
             <div className={'table-view-outher ' + this.props.className}>
                 <div className="tv-table">
@@ -111,7 +113,7 @@ export default class TableViewComponent extends Component{
                         <legend>Лимит ({e.items.length} записей)</legend>
                         <input className="tv-rp-limit"
                                onChange={this.handleChangeLimit}
-                               value={e.limit} />
+                               value={limit} />
                     </fieldset>
                     <fieldset>
                         <legend>Фильтры</legend>

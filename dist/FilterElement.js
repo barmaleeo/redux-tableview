@@ -54,35 +54,7 @@ function (_Component) {
     _defineProperty(_assertThisInitialized(_this), "state", {});
 
     _defineProperty(_assertThisInitialized(_this), "handleChangeFilterType", function (e) {
-      _this.props.tva.setFilterType(_this.props.entityName, _this.props.k, _this.props.config[e.target.value], e.target.value); //     //console.log('handleChangeFilterType', this.props.list, e);
-      //     let id = this.refs.type.selectedOptions[0].dataset.id;
-      //     let filter = this.props.list[id];
-      //     filter.id = id;
-      //     this.state.filter = filter;
-      //     if(filter.cond){
-      //         this.state.cond = '>';
-      //     }else{
-      //         this.state.cond = undefined;
-      //     }
-      //     if(this.state.filter.date){
-      //         this.state.value = sds(new Date())
-      //     }
-      //     let s = this.state;
-      //     this.setState(this.state,function(){
-      //         if(this.state.filter.date){
-      //             this.refs.value.value =s.value;
-      //             $(this.refs.value).datepicker({
-      //                 language: 'ru',
-      //                 dateFormat: 'dd-mm-yy',
-      //                 onSelect: this.handleChangeValue,
-      //             });
-      //         }else {
-      //             $(this.refs.value).datepicker('destroy');
-      //             $(this.refs.value).val('')
-      //         }
-      //         if(this.props.onChange){this.props.onChange()}
-      //     });
-
+      _this.props.tva.setFilterType(_this.props.entityName, _this.props.k, _this.props.config[e.target.value], e.target.value);
     });
 
     _defineProperty(_assertThisInitialized(_this), "handleChangeActive", function (e) {
@@ -90,12 +62,7 @@ function (_Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "handleChangeCond", function (e) {
-      _this.props.tva.setFilterCond(_this.props.entityName, _this.props.k, e.target.value); //     this.state.cond = this.refs.condition.value;
-      //     this.setState(this.state, function(){
-      //         if(this.props.onChange){this.props.onChange()}
-      //     });
-      //
-
+      _this.props.tva.setFilterCond(_this.props.entityName, _this.props.k, e.target.value);
     });
 
     _defineProperty(_assertThisInitialized(_this), "handleChangeValue", function (e) {
@@ -111,47 +78,9 @@ function (_Component) {
 
   _createClass(FilterElement, [{
     key: "render",
-    // getFilterState = () => {
-    //     if(this.state.filter.date){
-    //         var date = $(this.refs.value).datepicker('getDate');
-    //         if(date==null){
-    //             date = new Date();
-    //         }
-    //         //date.setHours(date.getHours()+2);
-    //         var value = mysqld(date);
-    //         //console.log('date',date, value)
-    //     } else{
-    //         value = this.refs.value.value;
-    //     }
-    //     let filter =  {
-    //         id: this.state.filter.id,
-    //         active: this.state.active,
-    //         type: this.refs.type.value,
-    //         value: value
-    //     };
-    //     if(this.refs.value.selectedIndex){
-    //         filter.variant = this.refs.value.selectedIndex;
-    //     }
-    //     if(this.state.filter.date!==undefined){
-    //         filter.date = this.state.filter.date;
-    //     }
-    //     if(this.state.filter.timestamp!==undefined){
-    //         filter.timestamp = this.state.filter.timestamp;
-    //     }
-    //     if(this.state.filter.like!==undefined){
-    //         filter.like = this.state.filter.like;
-    //     }
-    //     if(this.state.filter.having!==undefined){
-    //         filter.having = this.state.filter.having;
-    //     }
-    //     if(this.state.cond!==undefined){
-    //         filter.condition = this.state.cond;
-    //     }
-    //     return filter;
-    // };
     value: function render() {
-      var p = this.props;
-      var s = this.state;
+      var p = this.props; //let s = this.state;
+
       var f = p.filter;
       var value;
       var valueClass = 'filter-input' + (f.cond || f.date ? '' : ' wide');
@@ -159,11 +88,31 @@ function (_Component) {
       if (f.variants && f.variants.length > 0) {
         //console.log('value ', f.value, f.variants, f.variants[f.value]);
         var title = f.value;
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
 
-        for (var i in f.variants) {
-          if (title == f.variants[i].value) {
-            title = f.variants[i].name;
-            break;
+        try {
+          for (var _iterator = f.variants[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var v = _step.value;
+
+            if (title === v.value) {
+              title = v.name;
+              break;
+            }
+          }
+        } catch (err) {
+          _didIteratorError = true;
+          _iteratorError = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion && _iterator.return != null) {
+              _iterator.return();
+            }
+          } finally {
+            if (_didIteratorError) {
+              throw _iteratorError;
+            }
           }
         }
 
@@ -184,7 +133,7 @@ function (_Component) {
           className: valueClass,
           dpprops: {
             language: 'ru',
-            dateFormat: 'dd-mm-yy',
+            dateFormat: 'dd.mm.yy',
             onSelect: this.handleChangeValue
           },
           value: f.value

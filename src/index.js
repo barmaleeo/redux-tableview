@@ -15,6 +15,9 @@ const root = document.getElementById('root');
 
 window.$.get = (path, params, callback, format) => {
 
+    console.log('AJAX Request:', path, params, format);
+
+
     if(path === 'office/get-clients-table') {
         const response = {
             status: 'ok',
@@ -42,8 +45,32 @@ window.$.get = (path, params, callback, format) => {
             setTimeout(() => {callback(response)}, 1000)
         }
 
-    }else{
+    }else if(path === 'office/init'){
 
+
+        const response = {
+            status: 'error',
+            clients: {
+                items: [],
+                filterStates: {limit:100,
+                    config: '[' +
+                    '{"filter":1,"active":false,"value":""},'+
+                    '{"filter":2,"active":true,"value":""},' +
+                    '{"filter":"5","active":false,"value":0},' +
+                    '{"filter":14,"active":true,"value":"23.05.2019","cond":">"}' +
+                    ']'
+                },
+            },
+        };
+
+        if(typeof callback === "function"){
+            console.log('office-init-branch');
+
+            setTimeout(() => {callback(response)}, 1000)
+        }
+
+    }else{
+        console.log('ajax get error', path, params, callback, format);
         return {fail:(callback) => {
 
             if(typeof callback === "function"){

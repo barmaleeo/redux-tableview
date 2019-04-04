@@ -145,15 +145,17 @@ function (_Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       console.log(this.config.entity + ' did mount', this.props); //this.props.tva.loadDetail({id:this.reload}, this.config.entity, this.config.root)
-
-      this.reload();
+      //xthis.reload();
     }
   }, {
     key: "componentWillReceiveProps",
     value: function componentWillReceiveProps(p) {
-      console.log(this.config.entity + ' will receive props'); // if(!this.props.entity.init && p.entity.init){
-      //     this.reload();
-      // }
+      console.log(this.config.entity + ' will receive props');
+
+      if (!this.props.init.init && p.init.init) {
+        console.log('tableview Reload!!!');
+        this.reload();
+      }
     }
   }, {
     key: "componentWillMount",
@@ -172,7 +174,7 @@ function (_Component) {
 
       var e = this.props.entity;
 
-      if (e == undefined) {
+      if (e === undefined) {
         return null;
       }
 
@@ -195,6 +197,7 @@ function (_Component) {
         }));
       }
 
+      var limit = e.limit ? e.limit : 0;
       return _react.default.createElement("div", {
         className: 'table-view-outher ' + this.props.className
       }, _react.default.createElement("div", {
@@ -210,7 +213,7 @@ function (_Component) {
       }, _react.default.createElement("fieldset", null, _react.default.createElement("legend", null, "\u041B\u0438\u043C\u0438\u0442 (", e.items.length, " \u0437\u0430\u043F\u0438\u0441\u0435\u0439)"), _react.default.createElement("input", {
         className: "tv-rp-limit",
         onChange: this.handleChangeLimit,
-        value: e.limit
+        value: limit
       })), _react.default.createElement("fieldset", null, _react.default.createElement("legend", null, "\u0424\u0438\u043B\u044C\u0442\u0440\u044B"), e.filters.map(function (f, k) {
         return _react.default.createElement(_FilterElement.default, {
           filter: f,

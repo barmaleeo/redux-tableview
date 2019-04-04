@@ -5,11 +5,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = tableViewReducer;
 
-var TV = _interopRequireWildcard(require("./tableviewConstants"));
+var TV = _interopRequireWildcard(require("./tableViewConstants"));
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
-
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
@@ -35,7 +33,7 @@ function tableViewReducer(name) {
 
   switch (action.type) {
     case TV.TABLEVIEW_SET_CUSTOM:
-      if (name == pl.entity) {
+      if (pl.entity === name) {
         return _objectSpread({}, state, {
           showCustom: pl.id
         });
@@ -44,7 +42,7 @@ function tableViewReducer(name) {
       }
 
     case TV.TABLEVIEW_RELOAD_REQ:
-      if (name == pl.entity) {
+      if (pl.entity === name) {
         return _objectSpread({}, state, {
           loading: true,
           items: []
@@ -54,7 +52,7 @@ function tableViewReducer(name) {
       }
 
     case TV.TABLEVIEW_RELOAD_DONE:
-      if (name == pl.entity) {
+      if (pl.entity === name) {
         return _objectSpread({}, state, {
           items: pl.items,
           loading: false,
@@ -65,7 +63,7 @@ function tableViewReducer(name) {
       }
 
     case TV.TABLEVIEW_RELOAD_ERR:
-      if (name == pl.entity) {
+      if (pl.entity === name) {
         return _objectSpread({}, state, {
           loading: false,
           errMsg: pl.msg
@@ -75,7 +73,7 @@ function tableViewReducer(name) {
       }
 
     case TV.TABLEVIEW_SET_LIMIT:
-      if (name == pl.entity) {
+      if (pl.entity === name) {
         if (parseInt(pl.value) > 0) {
           return _objectSpread({}, state, {
             limit: pl.value
@@ -87,7 +85,7 @@ function tableViewReducer(name) {
 
     case TV.TABLEVIEW_SET_FILTER_ACTIVE:
       {
-        if (pl.entity == name) {
+        if (pl.entity === name) {
           var newState = _objectSpread({}, state);
 
           newState.filters[pl.id] = _objectSpread({}, newState.filters[pl.id], {
@@ -101,7 +99,7 @@ function tableViewReducer(name) {
 
     case TV.TABLEVIEW_SET_FILTER_VALUE:
       {
-        if (pl.entity == name) {
+        if (pl.entity === name) {
           var _newState = _objectSpread({}, state);
 
           _newState.filters[pl.id] = _objectSpread({}, _newState.filters[pl.id], {
@@ -115,7 +113,7 @@ function tableViewReducer(name) {
 
     case TV.TABLEVIEW_SET_ROW_CHECKED:
       {
-        if (pl.entity == name) {
+        if (pl.entity === name) {
           var _newState2 = _objectSpread({}, state);
 
           _newState2.items[pl.id] = _objectSpread({}, _newState2.items[pl.id], {
@@ -129,7 +127,7 @@ function tableViewReducer(name) {
 
     case TV.TABLEVIEW_SET_FILTER_COND:
       {
-        if (pl.entity == name) {
+        if (pl.entity === name) {
           var _newState3 = _objectSpread({}, state);
 
           _newState3.filters[pl.id] = _objectSpread({}, _newState3.filters[pl.id], {
@@ -143,25 +141,32 @@ function tableViewReducer(name) {
 
     case TV.TABLEVIEW_SET_FILTER_TYPE:
       {
-        if (pl.entity == name) {
+        if (pl.entity === name) {
           console.log(pl, state);
 
           var _newState4 = _objectSpread({}, state);
 
           var filter = _objectSpread({}, pl.filter);
 
-          filter.type = pl.type; //if(typeof filter.cond == 'string' && typeof state.filters[pl.id].cond == 'string'){
+          filter.type = pl.type;
 
           if (typeof filter.cond == 'string' && state.filters[pl.id].cond) {
             filter.cond = state.filters[pl.id].cond;
           } else if (filter.cond === true) {
-            filter.cond = '>';
+            filter.cond = '=';
           }
 
           filter.active = state.filters[pl.id].active;
 
           if (filter.variants && filter.variants.length > 0) {
             filter.value = filter.variants[0].value;
+          } else if (filter.number) {
+            filter.value = 0;
+          } else if (filter.date) {
+            var date = new Date();
+            filter.value = date.toLocaleDateString('ru');
+          } else {
+            filter.value = '';
           }
 
           _newState4.filters[pl.id] = filter;
@@ -172,7 +177,7 @@ function tableViewReducer(name) {
       }
 
     case TV.TABLEVIEW_OPEN_DETAIL:
-      if (pl.entity == name) {
+      if (pl.entity === name) {
         return _objectSpread({}, state, {
           showDetail: true
         });
@@ -181,7 +186,7 @@ function tableViewReducer(name) {
       }
 
     case TV.TABLEVIEW_CLOSE_DETAIL:
-      if (pl.entity == name) {
+      if (pl.entity === name) {
         return _objectSpread({}, state, {
           showDetail: false
         });
@@ -228,12 +233,17 @@ function tableViewReducer(name) {
                 cond: fc.cond
               });
 
-              if (fc.filter >= 0 && fc.filter < filterTypes.length && _typeof(filterTypes.variants) == 'object' && (fc.value == "" || fc.value == isNaN(fc.value) || fc.value < 0 && fc.value >= filterTypes.variants.length)) {
+              if (fc.filter >= 0 && fc.filter < filterTypes.length && Array.isArray(filterTypes[fc.filter].variants) && filterTypes[fc.filter].variants.length > 0 && !(fc.value >= 0 && fc.value < filterTypes[fc.filter].variants.length)) {
                 _filter.value = 0;
               } else {
                 _filter.value = fc.value;
               }
 
+              _filter.token = filterTypes[fc.filter].token;
+              _filter.having = filterTypes[fc.filter].having;
+              _filter.date = filterTypes[fc.filter].date;
+              _filter.like = filterTypes[fc.filter].like;
+              _filter.variants = filterTypes[fc.filter].variants;
               filters.push(_filter);
               n++;
             }
@@ -251,6 +261,16 @@ function tableViewReducer(name) {
               }
             }
           }
+
+          for (n; n < filters.length; n++) {
+            var config = filterTypes[n];
+            var bf = filters[n];
+            bf.token = config.token;
+            bf.having = !!config.having;
+            bf.date = !!config.date;
+            bf.like = !!config.like;
+            bf.variants = config.variants;
+          }
         } else {
           filters = newLoadState.filters;
           var _iteratorNormalCompletion2 = true;
@@ -260,26 +280,34 @@ function tableViewReducer(name) {
           try {
             for (var _iterator2 = filters[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
               var f = _step2.value;
-              var config = filterTypes[f.type];
+              var _config = filterTypes[f.type];
 
-              if (config.cond) {
-                if (f.cond == undefined) {
-                  f.cond = '>';
+              if (_config.cond) {
+                if (f.cond === undefined) {
+                  f.cond = '=';
                 }
               }
 
-              if (f.value == undefined) {
-                if (config.date) {
-                  var date = new Date();
-                  var day = date.getDate();
-                  var month = date.getMonth() + 1;
-                  f.value = (day < 10 ? '0' : '') + day + (month < 10 ? '-0' : '-') + month + '-' + date.getFullYear();
-                } else if (config.number) {
+              if (_config.variants && Array.isArray(_config.variants) && _config.variants.length > 0) {
+                if (!(f.value >= 0 && f.value < _config.variants.length)) {
                   f.value = 0;
-                } else {
-                  f.value = '';
                 }
+
+                f.variants = _config.variants;
+              } else if (_config.date) {
+                var _date = new Date();
+
+                f.value = _date.toLocaleDateString('ru');
+              } else if (_config.number) {
+                f.value = 0;
+              } else {
+                f.value = '';
               }
+
+              f.token = _config.token;
+              f.having = !!_config.having;
+              f.like = !!_config.like;
+              f.date = !!_config.date;
             }
           } catch (err) {
             _didIteratorError2 = true;
@@ -297,23 +325,14 @@ function tableViewReducer(name) {
           }
         }
 
-        for (n; n < filters.length; n++) {
-          var _config = filterTypes[n];
-          var bf = filters[n];
-          bf.token = _config.token;
-          bf.having = !!_config.having;
-          bf.date = !!_config.date;
-          bf.like = !!_config.like;
-          bf.variants = _config.variants;
-        }
-
         newLoadState.init = true;
+        newLoadState.filters = filters;
         return newLoadState;
       }
 
     case name.toUpperCase() + '_LOAD_DETAIL_REQ':
       {
-        if (pl.entity == name) {
+        if (pl.entity === name) {
           var _newState5 = _objectSpread({}, state);
 
           _newState5.loadDetail = true;
@@ -326,7 +345,7 @@ function tableViewReducer(name) {
 
     case name.toUpperCase() + '_LOAD_DETAIL_DONE':
       {
-        if (pl.entity == name) {
+        if (pl.entity === name) {
           var _newState6 = _objectSpread({}, state);
 
           _newState6.load = false;
@@ -342,7 +361,7 @@ function tableViewReducer(name) {
 
     case name.toUpperCase() + '_LOAD_DETAIL_ERR':
       {
-        if (pl.entity == name) {
+        if (pl.entity === name) {
           var _newState7 = _objectSpread({}, state);
 
           _newState7.loadDetail = false;
@@ -360,7 +379,7 @@ function tableViewReducer(name) {
         _newState8.selectedItem = _objectSpread({}, state.selectedItem);
         var selectedName;
 
-        if (name[name.length - 1] == 's') {
+        if (name[name.length - 1] === 's') {
           selectedName = name.substr(0, name.length - 1);
         } else {
           selectedName = name;

@@ -1,0 +1,5 @@
+export const OFFICE_INIT_REQ   = 'OFFICE_INIT_REQ';
+export const OFFICE_INIT_DONE  = 'OFFICE_INIT_DONE';
+export const OFFICE_INIT_ERR   = 'OFFICE_INIT_ERR';
+
+export const CLIENTS_LOAD_DONE = 'CLIENTS_LOAD_DONE';
