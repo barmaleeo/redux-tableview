@@ -144,8 +144,12 @@ function (_Component) {
   _createClass(TableViewComponent, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      console.log(this.config.entity + ' did mount', this.props); //this.props.tva.loadDetail({id:this.reload}, this.config.entity, this.config.root)
-      //xthis.reload();
+      console.log(this.config.entity + ' did mount', this.props);
+
+      if (this.props.init.init) {
+        //this.props.tva.loadDetail({id:this.reload}, this.config.entity, this.config.root)
+        this.reload();
+      }
     }
   }, {
     key: "componentWillReceiveProps",

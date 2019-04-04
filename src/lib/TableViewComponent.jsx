@@ -5,10 +5,13 @@ import FilterElement from "./FilterElement";
 export default class TableViewComponent extends Component{
 
     currentDetail = 0;
+
     componentDidMount(){
         console.log(this.config.entity + ' did mount', this.props);
-        //this.props.tva.loadDetail({id:this.reload}, this.config.entity, this.config.root)
-        //xthis.reload();
+        if(this.props.init.init) {
+            //this.props.tva.loadDetail({id:this.reload}, this.config.entity, this.config.root)
+            this.reload();
+        }
     }
     componentWillReceiveProps(p){
         console.log(this.config.entity + ' will receive props');
