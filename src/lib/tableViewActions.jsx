@@ -9,7 +9,7 @@ export function closeDetail(entity){
 }
 
 export function setCustom(entity, id){
-    return {type:TV.TABLEVIEW_CLOSE_DETAIL, payload:{entity:entity, id:id}}
+    return {type:TV.TABLEVIEW_SET_CUSTOM, payload:{entity:entity, id:id}}
 }
 
 export function loadDetail(i, entity, root = 'office'){

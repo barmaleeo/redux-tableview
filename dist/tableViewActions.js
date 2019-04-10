@@ -30,7 +30,7 @@ function closeDetail(entity) {
 
 function setCustom(entity, id) {
   return {
-    type: TV.TABLEVIEW_CLOSE_DETAIL,
+    type: TV.TABLEVIEW_SET_CUSTOM,
     payload: {
       entity: entity,
       id: id
