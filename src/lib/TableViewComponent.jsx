@@ -78,64 +78,77 @@ export default class TableViewComponent extends Component{
             this.props.tva.changeLimit(this.config.entity, e.target.value, this.config.root)
         }
     };
+
+    getDetailContent(e){
+        return (
+            <div className={'table-view-detail ' + this.props.className}>
+                <div className="tv-header">
+                    {typeof this.renderDetailHeader === "function" && this.renderDetailHeader()}
+                    <button className="btn btn-default btn-sm"
+                            onClick={this.closeDetail}>Закрыть</button>
+                </div>
+                <div className="tv-body">
+                    {typeof this.renderDetails === "function" && this.renderDetails()}
+                </div>
+                {e.selectedItem && (e.selectedItem.loading || e.loadDetail) && <div className="tv-detail-progress"/>}
+            </div>)
+
+    }
+
     render(){
         const e = this.props.entity;
         if(e === undefined){
             return null;
         }
-        if(e && e.showCustom){
-            return this.showCustom(e)
-        }
         if(e && e.showDetail){
-            return (
-                <div className={'table-view-detail ' + this.props.className}>
-                    <div className="tv-header">
-                        {typeof this.renderDetailHeader === "function" && this.renderDetailHeader()}
-                        <button className="btn btn-default btn-sm"
-                                onClick={this.closeDetail}>Закрыть</button>
-                    </div>
-                    <div className="tv-body">
-                        {typeof this.renderDetails === "function" && this.renderDetails()}
-                    </div>
-                    {e.selectedItem && (e.selectedItem.loading || e.loadDetail) && <div className="tv-detail-progress"/>}
-                </div>)
+            return this.getDetailContent(e)
         }
         const limit = (e.limit?e.limit:0);
         return(
             <div className={'table-view-outher ' + this.props.className}>
-                <div className="tv-table">
-                    <table className="table table-bordered table-condensed">
-                        <tbody>
-                            {e.items.map((i,k) => this.renderRow(i,k))}
-                        </tbody>
-                    </table>
-                    {e.loading && <div className="progress-loading-block abs">ЗАГРУЖАЕМ ДАННЫЕ</div>}
-                </div>
-                <div className="tv-right-panel">
-                    <fieldset>
-                        <legend>Лимит ({e.items.length} записей)</legend>
-                        <input className="tv-rp-limit"
-                               onChange={this.handleChangeLimit}
-                               value={limit} />
-                    </fieldset>
-                    <fieldset>
-                        <legend>Фильтры</legend>
-                        {e.filters.map((f,k) => <FilterElement filter={f}
-                                                               entityName={this.config.entity}
-                                                               k={k}
-                                                               key={k}
-                                                               config={e.filterTypes}
-                                                               tva={this.props.tva}/>)}
-                        <button className="btn btn-block btn-default"
-                                onClick={this.reload}>Обновить</button>
-                    </fieldset>
-                    {this.renderActions &&
-                        <fieldset>
-                            <legend>Действия</legend>
-                            {this.renderActions()}
-                        </fieldset>
-                    }
-                </div>
+                {e.showCustom>0 && this.config.customMode === 'stacked' && this.showCustom(e)}
+                {(!(e.showCustom > 0) || this.config.customMode === 'stacked' || this.config.customMode === 'tableTop')   &&
+                    <div className="tv-o-main">
+
+                        <div className="tv-table">
+                            {e.showCustom > 0 && this.config.customMode === 'tableTop' && this.showCustom(e)}
+                            <div className="table-scroll">
+                                <table className="table table-bordered table-condensed">
+                                    <tbody>
+                                    {e.items.map((i, k) => this.renderRow(i, k))}
+                                    </tbody>
+                                </table>
+                                {e.loading && <div className="progress-loading-block abs">ЗАГРУЖАЕМ ДАННЫЕ</div>}
+                            </div>
+                        </div>
+                        <div className="tv-right-panel">
+                            <fieldset>
+                                <legend>Лимит ({e.items.length} записей)</legend>
+                                <input className="tv-rp-limit"
+                                       onChange={this.handleChangeLimit}
+                                       value={limit}/>
+                            </fieldset>
+                            <fieldset>
+                                <legend>Фильтры</legend>
+                                {e.filters.map((f, k) => <FilterElement filter={f}
+                                                                        entityName={this.config.entity}
+                                                                        k={k}
+                                                                        key={k}
+                                                                        config={e.filterTypes}
+                                                                        tva={this.props.tva}/>)}
+                                <button className="btn btn-block btn-default"
+                                        onClick={this.reload}>Обновить
+                                </button>
+                            </fieldset>
+                            {this.renderActions &&
+                            <fieldset>
+                                <legend>Действия</legend>
+                                {this.renderActions()}
+                            </fieldset>
+                            }
+                        </div>
+                    </div>
+                }
             </div>
         )
     }

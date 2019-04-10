@@ -1,0 +1,18 @@
+div.table-view-outher{
+  height: 100vh!important;
+}
+div{
+  div.clients-custom-content{
+    height: 200px;
+    background-color: #eee9db;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    >div{
+      text-align: center;
+      >button{
+        margin-top:10px;
+      }
+    }
+  }
+}

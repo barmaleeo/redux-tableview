@@ -5,14 +5,36 @@ import {bindActionCreators} from "redux";
 import * as tableViewActions from "./lib/tableViewActions";
 
 
-//import './TableViewStyle';
+import './tableViewStyle.scss';
 
 
 class TableView extends TableViewComponent {
-    config={entity :"clients"};
+    config={entity :"clients", customMode:'tableTop'};
 
     renderDetails = () => {
         return (<div>render detail</div>)
+    };
+
+    showCustom = ()=>{
+        return (
+            <div className="clients-custom-content">
+                <div>
+                    <div>This is a CUSTOM CONTENT</div>
+                    <button className="btn btn-info"
+                            onClick={this.props.tva.setCustom.bind(this, 'clients', 0)}>close</button>
+                </div>
+            </div>
+        )
+
+    };
+
+    renderActions = () => {
+        return (
+            <div>
+                <button className="btn btn-block btn-success"
+                        onClick={this.props.tva.setCustom.bind(this, this.config.entity, 1)}>Custom content</button>
+            </div>
+        )
     };
 
     renderRow = (item, n) => {
