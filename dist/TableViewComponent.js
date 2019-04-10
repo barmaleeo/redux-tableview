@@ -172,6 +172,22 @@ function (_Component) {
       console.log(this.config.entity + ' will unmount');
     }
   }, {
+    key: "getDetailContent",
+    value: function getDetailContent(e) {
+      return _react.default.createElement("div", {
+        className: 'table-view-detail ' + this.props.className
+      }, _react.default.createElement("div", {
+        className: "tv-header"
+      }, typeof this.renderDetailHeader === "function" && this.renderDetailHeader(), _react.default.createElement("button", {
+        className: "btn btn-default btn-sm",
+        onClick: this.closeDetail
+      }, "\u0417\u0430\u043A\u0440\u044B\u0442\u044C")), _react.default.createElement("div", {
+        className: "tv-body"
+      }, typeof this.renderDetails === "function" && this.renderDetails()), e.selectedItem && (e.selectedItem.loading || e.loadDetail) && _react.default.createElement("div", {
+        className: "tv-detail-progress"
+      }));
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this2 = this;
@@ -182,37 +198,26 @@ function (_Component) {
         return null;
       }
 
-      if (e && e.showCustom) {
-        return this.showCustom(e);
-      }
-
       if (e && e.showDetail) {
-        return _react.default.createElement("div", {
-          className: 'table-view-detail ' + this.props.className
-        }, _react.default.createElement("div", {
-          className: "tv-header"
-        }, typeof this.renderDetailHeader === "function" && this.renderDetailHeader(), _react.default.createElement("button", {
-          className: "btn btn-default btn-sm",
-          onClick: this.closeDetail
-        }, "\u0417\u0430\u043A\u0440\u044B\u0442\u044C")), _react.default.createElement("div", {
-          className: "tv-body"
-        }, typeof this.renderDetails === "function" && this.renderDetails()), e.selectedItem && (e.selectedItem.loading || e.loadDetail) && _react.default.createElement("div", {
-          className: "tv-detail-progress"
-        }));
+        return this.getDetailContent(e);
       }
 
       var limit = e.limit ? e.limit : 0;
       return _react.default.createElement("div", {
         className: 'table-view-outher ' + this.props.className
+      }, e.showCustom > 0 && this.config.customMode === 'stacked' && this.showCustom(e), (!(e.showCustom > 0) || this.config.customMode === 'stacked' || this.config.customMode === 'tableTop') && _react.default.createElement("div", {
+        className: "tv-o-main"
       }, _react.default.createElement("div", {
         className: "tv-table"
+      }, e.showCustom > 0 && this.config.customMode === 'tableTop' && this.showCustom(e), _react.default.createElement("div", {
+        className: "table-scroll"
       }, _react.default.createElement("table", {
         className: "table table-bordered table-condensed"
       }, _react.default.createElement("tbody", null, e.items.map(function (i, k) {
         return _this2.renderRow(i, k);
       }))), e.loading && _react.default.createElement("div", {
         className: "progress-loading-block abs"
-      }, "\u0417\u0410\u0413\u0420\u0423\u0416\u0410\u0415\u041C \u0414\u0410\u041D\u041D\u042B\u0415")), _react.default.createElement("div", {
+      }, "\u0417\u0410\u0413\u0420\u0423\u0416\u0410\u0415\u041C \u0414\u0410\u041D\u041D\u042B\u0415"))), _react.default.createElement("div", {
         className: "tv-right-panel"
       }, _react.default.createElement("fieldset", null, _react.default.createElement("legend", null, "\u041B\u0438\u043C\u0438\u0442 (", e.items.length, " \u0437\u0430\u043F\u0438\u0441\u0435\u0439)"), _react.default.createElement("input", {
         className: "tv-rp-limit",
@@ -230,7 +235,7 @@ function (_Component) {
       }), _react.default.createElement("button", {
         className: "btn btn-block btn-default",
         onClick: this.reload
-      }, "\u041E\u0431\u043D\u043E\u0432\u0438\u0442\u044C")), this.renderActions && _react.default.createElement("fieldset", null, _react.default.createElement("legend", null, "\u0414\u0435\u0439\u0441\u0442\u0432\u0438\u044F"), this.renderActions())));
+      }, "\u041E\u0431\u043D\u043E\u0432\u0438\u0442\u044C")), this.renderActions && _react.default.createElement("fieldset", null, _react.default.createElement("legend", null, "\u0414\u0435\u0439\u0441\u0442\u0432\u0438\u044F"), this.renderActions()))));
     }
   }]);
 
