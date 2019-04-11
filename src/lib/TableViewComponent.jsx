@@ -106,8 +106,12 @@ export default class TableViewComponent extends Component{
         const limit = (e.limit?e.limit:0);
         return(
             <div className={'table-view-outher ' + this.props.className}>
-                {e.showCustom>0 && this.config.customMode === 'stacked' && this.showCustom(e)}
-                {(!(e.showCustom > 0) || this.config.customMode === 'stacked' || this.config.customMode === 'tableTop')   &&
+                {e.showCustom>0 && this.config.customMode !== 'tableTop' && this.showCustom(e)}
+                {(
+                    !(e.showCustom > 0)
+                    || this.config.customMode === 'stacked'
+                    || this.config.customMode === 'tableTop')   &&
+
                     <div className="tv-o-main">
 
                         <div className="tv-table">

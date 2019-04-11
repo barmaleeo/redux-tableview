@@ -205,7 +205,7 @@ function (_Component) {
       var limit = e.limit ? e.limit : 0;
       return _react.default.createElement("div", {
         className: 'table-view-outher ' + this.props.className
-      }, e.showCustom > 0 && this.config.customMode === 'stacked' && this.showCustom(e), (!(e.showCustom > 0) || this.config.customMode === 'stacked' || this.config.customMode === 'tableTop') && _react.default.createElement("div", {
+      }, e.showCustom > 0 && this.config.customMode !== 'tableTop' && this.showCustom(e), (!(e.showCustom > 0) || this.config.customMode === 'stacked' || this.config.customMode === 'tableTop') && _react.default.createElement("div", {
         className: "tv-o-main"
       }, _react.default.createElement("div", {
         className: "tv-table"
