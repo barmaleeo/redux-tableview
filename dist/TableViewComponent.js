@@ -205,11 +205,11 @@ function (_Component) {
       var limit = e.limit ? e.limit : 0;
       return _react.default.createElement("div", {
         className: 'table-view-outher ' + this.props.className
-      }, e.showCustom > 0 && this.config.customMode !== 'tableTop' && this.showCustom(e), (!(e.showCustom > 0) || this.config.customMode === 'stacked' || this.config.customMode === 'tableTop') && _react.default.createElement("div", {
+      }, e.showCustom > 0 && this.config.customMode !== 'tableTop' && this.renderCustom(e), (!(e.showCustom > 0) || this.config.customMode === 'stacked' || this.config.customMode === 'tableTop') && _react.default.createElement("div", {
         className: "tv-o-main"
       }, _react.default.createElement("div", {
         className: "tv-table"
-      }, e.showCustom > 0 && this.config.customMode === 'tableTop' && this.showCustom(e), _react.default.createElement("div", {
+      }, e.showCustom > 0 && this.config.customMode === 'tableTop' && this.renderCustom(e), _react.default.createElement("div", {
         className: "table-scroll"
       }, _react.default.createElement("table", {
         className: "table table-bordered table-condensed"

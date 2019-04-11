@@ -15,7 +15,7 @@ class TableView extends TableViewComponent {
         return (<div>render detail</div>)
     };
 
-    showCustom = ()=>{
+    renderCustom = ()=>{
         return (
             <div className="clients-custom-content">
                 <div>
