@@ -72,7 +72,7 @@ function (_Component) {
 
     _defineProperty(_assertThisInitialized(_this), "reload", function () {
       if (_this.props.tva) {
-        _this.props.tva.reload(_this.config.entity, _this.props.entity.filters, _this.props.entity.limit, _this.config.root);
+        _this.props.tva.reload(_this.config.entity, _this.props.entity.filters, _this.props.entity.limit, _this.config.root, _this.props.loadParams);
       }
     });
 

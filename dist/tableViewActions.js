@@ -170,6 +170,7 @@ function setChecked(entity, id, checked) {
 
 function reload(entity, filtersArray, limit) {
   var root = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'office';
+  var loadParams = arguments.length > 4 ? arguments[4] : undefined;
   return function (dispatch, getState) {
     var filters = [];
     var _iteratorNormalCompletion = true;
@@ -232,14 +233,16 @@ function reload(entity, filtersArray, limit) {
     });
     window.$.get(root + '/get-' + entity.toLowerCase() + '-table', {
       filters: filters,
-      limit: limit
+      limit: limit,
+      params: loadParams
     }, function (r) {
       if (r.status === 'ok') {
         dispatch({
           type: TV.TABLEVIEW_RELOAD_DONE,
           payload: {
             entity: entity,
-            items: r.items
+            items: r.items,
+            params: loadParams
           }
         });
       } else {
@@ -247,7 +250,8 @@ function reload(entity, filtersArray, limit) {
           type: TV.TABLEVIEW_RELOAD_ERR,
           payload: {
             entity: entity,
-            msg: r.msg
+            msg: r.msg,
+            params: loadParams
           }
         });
       }
@@ -256,7 +260,8 @@ function reload(entity, filtersArray, limit) {
         type: TV.TABLEVIEW_RELOAD_ERR,
         payload: {
           entity: entity,
-          msg: e.responseText
+          msg: e.responseText,
+          params: loadParams
         }
       });
     });
