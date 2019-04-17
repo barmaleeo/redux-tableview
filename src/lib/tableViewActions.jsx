@@ -61,7 +61,7 @@ export function setFilterValue(entity, id, value){
 export function setChecked(entity,id, checked){
     return {type:TV.TABLEVIEW_SET_ROW_CHECKED, payload:{entity:entity, id:id, checked:checked}}
 }
-export function reload(entity, filtersArray, limit, root = 'office'){
+export function reload(entity, filtersArray, limit, root = 'office', loadParams){
     return (dispatch, getState) => {
 
         const filters = [];
@@ -93,14 +93,15 @@ export function reload(entity, filtersArray, limit, root = 'office'){
         }
 
         dispatch({type:TV.TABLEVIEW_RELOAD_REQ, payload:{entity:entity}});
-        window.$.get(root+'/get-'+entity.toLowerCase()+'-table', {filters:filters, limit:limit}, function(r) {
+        window.$.get(root+'/get-'+entity.toLowerCase()+'-table',
+            {filters:filters, limit:limit, params:loadParams}, function(r) {
             if(r.status === 'ok'){
-                dispatch({type:TV.TABLEVIEW_RELOAD_DONE, payload:{entity:entity, items:r.items}});
+                dispatch({type:TV.TABLEVIEW_RELOAD_DONE, payload:{entity:entity, items:r.items, params:loadParams}});
             }else{
-                dispatch({type:TV.TABLEVIEW_RELOAD_ERR, payload:{entity:entity, msg:r.msg}});
+                dispatch({type:TV.TABLEVIEW_RELOAD_ERR, payload:{entity:entity, msg:r.msg, params:loadParams}});
             }
         }, 'json').fail((e) => {
-            dispatch({type: TV.TABLEVIEW_RELOAD_ERR, payload:{entity:entity, msg:e.responseText}});
+            dispatch({type: TV.TABLEVIEW_RELOAD_ERR, payload:{entity:entity, msg:e.responseText, params:loadParams}});
         })
     }
 }

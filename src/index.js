@@ -100,7 +100,7 @@ render(
     <Provider store={store}>
         <div id="provider-root">
             <DevTools/>
-            <TableView/>
+            <TableView loadParams={{loadParam1:'load Param 1 value'}}/>
         </div>
     </Provider>,
     root

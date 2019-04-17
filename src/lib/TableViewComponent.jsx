@@ -40,7 +40,8 @@ export default class TableViewComponent extends Component{
     };
     reload = () => {
         if(this.props.tva) {
-            this.props.tva.reload(this.config.entity, this.props.entity.filters, this.props.entity.limit, this.config.root)
+            this.props.tva.reload(this.config.entity, this.props.entity.filters,
+                this.props.entity.limit, this.config.root, this.props.loadParams)
         }
     };
     handleClickChecked = (n, checked, e) => {
