@@ -59,7 +59,7 @@ window.$.get = (path, params, callback, format) => {
 
 
         const response = {
-            status: 'error',
+            status: 'ok',
             clients: {
                 items: [],
                 filterStates: {limit:100,

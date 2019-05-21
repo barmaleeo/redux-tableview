@@ -53,8 +53,9 @@ export default class FilterElement extends Component{
             )
         }else if(f.date){
             value =  <DatePicker className={valueClass}
+                                 onChange={()=>{}}
                                  dpprops={{language:'ru', dateFormat: 'dd.mm.yy',onSelect:this.handleChangeValue}}
-                                 value={f.value}/>;
+                                 value={f.value?f.value:' '}/>;
         }else{
             value =  <input ref="value"
                             onChange={this.handleChangeValue}
@@ -64,7 +65,7 @@ export default class FilterElement extends Component{
         return (
             <div className="filter-container" title={f.name}>
                 <input ref="active" type="checkbox" className="filter-on"
-                       onChange={this.handleChangeActive} checked={f.active}/>
+                       onChange={this.handleChangeActive} checked={!!f.active}/>
                 <select ref='type' className="filter-type"
                         value={f.type}
                         onChange={this.handleChangeFilterType}>

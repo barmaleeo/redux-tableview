@@ -105,6 +105,10 @@ export default class TableViewComponent extends Component{
             return this.getDetailContent(e)
         }
         const limit = (e.limit?e.limit:0);
+        let checked = 0;
+        for(const i of e.items) {
+            checked += i.checked ? 1 : 0;
+        }
         return(
             <div className={'table-view-outher ' + this.props.className}>
                 {e.showCustom>0 && this.config.customMode !== 'tableTop' && this.renderCustom(e)}
@@ -132,6 +136,19 @@ export default class TableViewComponent extends Component{
                                 <input className="tv-rp-limit"
                                        onChange={this.handleChangeLimit}
                                        value={limit}/>
+                            </fieldset>
+                            <fieldset>
+                                <legend>Выбрано ({checked} записей)</legend>
+                                <div>
+                                    <button className="btn btn-sm btn-primary"
+                                            onClick={this.props.tva.setChecked.bind(this, this.config.entity, 0, true)}>
+                                        выбрать все
+                                    </button>
+                                    <button className="btn btn-sm btn-primary"
+                                            onClick={this.props.tva.setChecked.bind(this, this.config.entity, 0, false)}>
+                                        отменить все
+                                    </button>
+                                </div>
                             </fieldset>
                             <fieldset>
                                 <legend>Фильтры</legend>

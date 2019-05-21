@@ -203,6 +203,31 @@ function (_Component) {
       }
 
       var limit = e.limit ? e.limit : 0;
+      var checked = 0;
+      var _iteratorNormalCompletion2 = true;
+      var _didIteratorError2 = false;
+      var _iteratorError2 = undefined;
+
+      try {
+        for (var _iterator2 = e.items[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+          var i = _step2.value;
+          checked += i.checked ? 1 : 0;
+        }
+      } catch (err) {
+        _didIteratorError2 = true;
+        _iteratorError2 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion2 && _iterator2.return != null) {
+            _iterator2.return();
+          }
+        } finally {
+          if (_didIteratorError2) {
+            throw _iteratorError2;
+          }
+        }
+      }
+
       return _react.default.createElement("div", {
         className: 'table-view-outher ' + this.props.className
       }, e.showCustom > 0 && this.config.customMode !== 'tableTop' && this.renderCustom(e), (!(e.showCustom > 0) || this.config.customMode === 'stacked' || this.config.customMode === 'tableTop') && _react.default.createElement("div", {
@@ -223,7 +248,13 @@ function (_Component) {
         className: "tv-rp-limit",
         onChange: this.handleChangeLimit,
         value: limit
-      })), _react.default.createElement("fieldset", null, _react.default.createElement("legend", null, "\u0424\u0438\u043B\u044C\u0442\u0440\u044B"), e.filters.map(function (f, k) {
+      })), _react.default.createElement("fieldset", null, _react.default.createElement("legend", null, "\u0412\u044B\u0431\u0440\u0430\u043D\u043E (", checked, " \u0437\u0430\u043F\u0438\u0441\u0435\u0439)"), _react.default.createElement("div", null, _react.default.createElement("button", {
+        className: "btn btn-sm btn-primary",
+        onClick: this.props.tva.setChecked.bind(this, this.config.entity, 0, true)
+      }, "\u0432\u044B\u0431\u0440\u0430\u0442\u044C \u0432\u0441\u0435"), _react.default.createElement("button", {
+        className: "btn btn-sm btn-primary",
+        onClick: this.props.tva.setChecked.bind(this, this.config.entity, 0, false)
+      }, "\u043E\u0442\u043C\u0435\u043D\u0438\u0442\u044C \u0432\u0441\u0435"))), _react.default.createElement("fieldset", null, _react.default.createElement("legend", null, "\u0424\u0438\u043B\u044C\u0442\u0440\u044B"), e.filters.map(function (f, k) {
         return _react.default.createElement(_FilterElement.default, {
           filter: f,
           entityName: _this2.config.entity,

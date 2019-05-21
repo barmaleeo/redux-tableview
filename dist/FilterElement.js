@@ -131,12 +131,13 @@ function (_Component) {
       } else if (f.date) {
         value = _react.default.createElement(_DatePicker.default, {
           className: valueClass,
+          onChange: function onChange() {},
           dpprops: {
             language: 'ru',
             dateFormat: 'dd.mm.yy',
             onSelect: this.handleChangeValue
           },
-          value: f.value
+          value: f.value ? f.value : ' '
         });
       } else {
         value = _react.default.createElement("input", {
@@ -155,7 +156,7 @@ function (_Component) {
         type: "checkbox",
         className: "filter-on",
         onChange: this.handleChangeActive,
-        checked: f.active
+        checked: !!f.active
       }), _react.default.createElement("select", {
         ref: "type",
         className: "filter-type",

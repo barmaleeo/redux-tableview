@@ -58,7 +58,7 @@ export function setFilterValue(entity, id, value){
         saveFilterState(getState()[entity]);
     }
 }
-export function setChecked(entity,id, checked){
+export function setChecked(entity, id, checked){
     return {type:TV.TABLEVIEW_SET_ROW_CHECKED, payload:{entity:entity, id:id, checked:checked}}
 }
 export function reload(entity, filtersArray, limit, root = 'office', loadParams){
