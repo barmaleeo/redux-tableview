@@ -68,11 +68,12 @@ div.table-view-outher{
         div.filter-container {
           display: flex;
           width: 280px;
+          align-items: center;
 
           input.filter-on {
             flex: 1 0 20px;
             max-width: 20px;
-            height: 20px;
+            height: 21px;
             vertical-align: bottom;
           }
 
