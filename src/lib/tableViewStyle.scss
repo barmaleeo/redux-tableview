@@ -42,7 +42,7 @@ div.table-view-outher{
     > div.tv-right-panel {
       width: 300px;
       padding: 0 5px;
-
+      overflow-y:auto;
       > fieldset {
         border: 1px solid #ccc;
         padding: 4px;
