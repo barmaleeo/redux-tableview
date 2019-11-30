@@ -4,6 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.closeDetail = closeDetail;
+exports.openDetail = openDetail;
 exports.setCustom = setCustom;
 exports.loadDetail = loadDetail;
 exports.changeLimit = changeLimit;
@@ -22,6 +23,15 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 function closeDetail(entity) {
   return {
     type: TV.TABLEVIEW_CLOSE_DETAIL,
+    payload: {
+      entity: entity
+    }
+  };
+}
+
+function openDetail(entity) {
+  return {
+    type: TV.TABLEVIEW_OPEN_DETAIL,
     payload: {
       entity: entity
     }
