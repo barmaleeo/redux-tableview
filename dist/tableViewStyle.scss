@@ -67,30 +67,34 @@ div.table-view-outher{
 
         div.filter-container {
           display: flex;
-          width: 280px;
           align-items: center;
+          width: 100%;
+          font-size: 14px;
+          margin-bottom: 1px;
 
           input.filter-on {
             flex: 1 0 20px;
             max-width: 20px;
-            height: 21px;
-            vertical-align: bottom;
+            height: 22px;
+
           }
 
           select.filter-type {
             flex: 1 0 80px;
             max-width: 80px;
+            height: 22px;
           }
 
           select.filter-condition {
             flex: 1 0 40px;
+            height: 22px;
           }
 
           .filter-input {
             width: 100%;
             text-align: right;
-            padding-right: 2px;
-            padding-left: 2px;
+            padding:0 2px;
+            height: 22px;
           }
         }
 
