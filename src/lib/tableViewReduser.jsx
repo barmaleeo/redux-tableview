@@ -251,7 +251,7 @@ export default function tableViewReducer(name, state = initialState, action, sel
             }
         }
         default:
-            if(typeof selectedItemReducer === 'function'){
+            if(typeof selectedItemReducer === 'function' && pl.entity === name){
                 const newState = {...state};
                 newState.selectedItem = {...state.selectedItem};
                 let selectedName;

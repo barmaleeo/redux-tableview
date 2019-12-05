@@ -401,7 +401,7 @@ function tableViewReducer(name) {
       }
 
     default:
-      if (typeof selectedItemReducer === 'function') {
+      if (typeof selectedItemReducer === 'function' && pl.entity === name) {
         var _newState8 = _objectSpread({}, state);
 
         _newState8.selectedItem = _objectSpread({}, state.selectedItem);
