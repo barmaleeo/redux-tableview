@@ -30,16 +30,17 @@ function tableViewReducer(name) {
   var selectedItemReducer = arguments.length > 3 ? arguments[3] : undefined;
   var pl = action.payload;
   console.log('tableViewReducer ', action.type, name, pl);
+  var newState = state;
 
   switch (action.type) {
     case TV.TABLEVIEW_SET_CUSTOM:
       if (pl.entity === name) {
-        return _objectSpread({}, state, {
+        newState = _objectSpread({}, state, {
           showCustom: pl.id
         });
-      } else {
-        return state;
       }
+
+      break;
 
     case TV.TABLEVIEW_RELOAD_REQ:
       if (pl.entity === name) {
@@ -47,83 +48,77 @@ function tableViewReducer(name) {
           loading: true,
           items: []
         });
-      } else {
-        return state;
       }
+
+      break;
 
     case TV.TABLEVIEW_RELOAD_DONE:
       if (pl.entity === name) {
-        return _objectSpread({}, state, {
+        newState = _objectSpread({}, state, {
           items: pl.items,
           loading: false,
           errMsg: undefined
         });
-      } else {
-        return state;
       }
+
+      break;
 
     case TV.TABLEVIEW_RELOAD_ERR:
       if (pl.entity === name) {
-        return _objectSpread({}, state, {
+        newState = _objectSpread({}, state, {
           loading: false,
           errMsg: pl.msg
         });
-      } else {
-        return state;
       }
+
+      break;
 
     case TV.TABLEVIEW_SET_LIMIT:
       if (pl.entity === name) {
         if (parseInt(pl.value) > 0) {
-          return _objectSpread({}, state, {
+          newState = _objectSpread({}, state, {
             limit: pl.value
           });
         }
       }
 
-      return state;
+      break;
 
     case TV.TABLEVIEW_SET_FILTER_ACTIVE:
-      {
-        if (pl.entity === name) {
-          var newState = _objectSpread({}, state);
+      if (pl.entity === name) {
+        var _newState = _objectSpread({}, state);
 
-          newState.filters[pl.id] = _objectSpread({}, newState.filters[pl.id], {
-            active: pl.value
-          });
-          return newState;
-        } else {
-          return state;
-        }
+        _newState.filters[pl.id] = _objectSpread({}, _newState.filters[pl.id], {
+          active: pl.value
+        });
       }
+
+      break;
 
     case TV.TABLEVIEW_SET_FILTER_VALUE:
-      {
-        if (pl.entity === name) {
-          var _newState = _objectSpread({}, state);
+      if (pl.entity === name) {
+        var _newState2 = _objectSpread({}, state);
 
-          _newState.filters[pl.id] = _objectSpread({}, _newState.filters[pl.id], {
-            value: pl.value
-          });
-          return _newState;
-        } else {
-          return state;
-        }
+        _newState2.filters[pl.id] = _objectSpread({}, _newState2.filters[pl.id], {
+          value: pl.value
+        });
       }
+
+      break;
 
     case TV.TABLEVIEW_SET_ROW_CHECKED:
       {
         if (pl.entity === name) {
-          var _newState2 = _objectSpread({}, state);
+          var _newState3 = _objectSpread({}, state);
 
           if (parseInt(pl.id) === 0) {
-            _newState2.items = state.items.slice();
+            _newState3.items = state.items.slice();
             var _iteratorNormalCompletion = true;
             var _didIteratorError = false;
             var _iteratorError = undefined;
 
             try {
-              for (var _iterator = _newState2.items[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+              for (var _iterator = _newState3.items[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
                 var i = _step.value;
                 i.checked = pl.checked;
               }
@@ -142,37 +137,33 @@ function tableViewReducer(name) {
               }
             }
           } else {
-            _newState2.items[pl.id] = _objectSpread({}, _newState2.items[pl.id], {
+            _newState3.items[pl.id] = _objectSpread({}, _newState3.items[pl.id], {
               checked: pl.checked
             });
           }
-
-          return _newState2;
-        } else {
-          return state;
         }
+
+        break;
       }
 
     case TV.TABLEVIEW_SET_FILTER_COND:
       {
         if (pl.entity === name) {
-          var _newState3 = _objectSpread({}, state);
+          var _newState4 = _objectSpread({}, state);
 
-          _newState3.filters[pl.id] = _objectSpread({}, _newState3.filters[pl.id], {
+          _newState4.filters[pl.id] = _objectSpread({}, _newState4.filters[pl.id], {
             cond: pl.cond
           });
-          return _newState3;
-        } else {
-          return state;
         }
+
+        break;
       }
 
     case TV.TABLEVIEW_SET_FILTER_TYPE:
       {
         if (pl.entity === name) {
-          console.log(pl, state);
-
-          var _newState4 = _objectSpread({}, state);
+          //console.log(pl, state);
+          var _newState5 = _objectSpread({}, state);
 
           var filter = _objectSpread({}, pl.filter);
 
@@ -197,226 +188,210 @@ function tableViewReducer(name) {
             filter.value = '';
           }
 
-          _newState4.filters[pl.id] = filter;
-          return _newState4;
-        } else {
-          return state;
+          _newState5.filters[pl.id] = filter;
         }
+
+        break;
       }
 
     case TV.TABLEVIEW_OPEN_DETAIL:
       if (pl.entity === name) {
-        return _objectSpread({}, state, {
+        newState = _objectSpread({}, state, {
           showDetail: true
         });
-      } else {
-        return state;
       }
+
+      break;
 
     case TV.TABLEVIEW_CLOSE_DETAIL:
       if (pl.entity === name) {
-        return _objectSpread({}, state, {
+        newState = _objectSpread({}, state, {
           showDetail: false
         });
-      } else {
-        return state;
       }
+
+      break;
 
     case name.toUpperCase() + '_LOAD_DONE':
-      {
-        var newLoadState = _objectSpread({}, state, {
-          items: pl.items
-        });
+      newState = _objectSpread({}, state, {
+        items: pl.items
+      });
+      var filterConfig;
 
-        var filterConfig;
+      if (pl.filterStates != null) {
+        try {
+          filterConfig = JSON.parse(pl.filterStates.config);
+        } catch (e) {}
 
-        if (pl.filterStates != null) {
-          try {
-            filterConfig = JSON.parse(pl.filterStates.config);
-          } catch (e) {}
+        var filterLimit = pl.filterStates.limit;
 
-          var filterLimit = pl.filterStates.limit;
-
-          if (!isNaN(parseInt(filterLimit)) && filterLimit > 0) {
-            newLoadState.limit = parseInt(filterLimit);
-          }
+        if (!isNaN(parseInt(filterLimit)) && filterLimit > 0) {
+          newState.limit = parseInt(filterLimit);
         }
-
-        var filterTypes = newLoadState.filterTypes;
-        var n = 0;
-        var filters = [];
-
-        if (filterConfig) {
-          var _iteratorNormalCompletion2 = true;
-          var _didIteratorError2 = false;
-          var _iteratorError2 = undefined;
-
-          try {
-            for (var _iterator2 = filterConfig[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-              var fc = _step2.value;
-
-              var _filter = _objectSpread({}, filterTypes[fc.filter], {
-                type: fc.filter,
-                active: fc.active,
-                cond: fc.cond
-              });
-
-              if (fc.filter >= 0 && fc.filter < filterTypes.length && Array.isArray(filterTypes[fc.filter].variants) && filterTypes[fc.filter].variants.length > 0 && !(fc.value >= 0 && fc.value < filterTypes[fc.filter].variants.length)) {
-                _filter.value = filterTypes[fc.filter].variants[0].value;
-              } else {
-                _filter.value = fc.value;
-              }
-
-              _filter.token = filterTypes[fc.filter].token;
-              _filter.having = filterTypes[fc.filter].having;
-              _filter.date = filterTypes[fc.filter].date;
-              _filter.like = filterTypes[fc.filter].like;
-              _filter.variants = filterTypes[fc.filter].variants;
-              filters.push(_filter);
-              n++;
-            }
-          } catch (err) {
-            _didIteratorError2 = true;
-            _iteratorError2 = err;
-          } finally {
-            try {
-              if (!_iteratorNormalCompletion2 && _iterator2.return != null) {
-                _iterator2.return();
-              }
-            } finally {
-              if (_didIteratorError2) {
-                throw _iteratorError2;
-              }
-            }
-          }
-
-          for (n; n < filters.length; n++) {
-            var config = filterTypes[n];
-            var bf = filters[n];
-            bf.token = config.token;
-            bf.having = !!config.having;
-            bf.date = !!config.date;
-            bf.like = !!config.like;
-            bf.variants = config.variants;
-          }
-        } else {
-          filters = newLoadState.filters;
-          var _iteratorNormalCompletion3 = true;
-          var _didIteratorError3 = false;
-          var _iteratorError3 = undefined;
-
-          try {
-            for (var _iterator3 = filters[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-              var f = _step3.value;
-              var _config = filterTypes[f.type];
-
-              if (_config.cond) {
-                if (f.cond === undefined) {
-                  f.cond = '=';
-                }
-              }
-
-              if (_config.variants && Array.isArray(_config.variants) && _config.variants.length > 0) {
-                if (!(f.value >= 0 && f.value < _config.variants.length)) {
-                  f.value = _config.variants[0].value;
-                }
-
-                f.variants = _config.variants;
-              } else if (_config.date) {
-                var _date = new Date();
-
-                f.value = _date.toLocaleDateString('ru');
-              } else if (_config.number) {
-                f.value = 0;
-              } else {
-                f.value = '';
-              }
-
-              f.token = _config.token;
-              f.having = !!_config.having;
-              f.like = !!_config.like;
-              f.date = !!_config.date;
-            }
-          } catch (err) {
-            _didIteratorError3 = true;
-            _iteratorError3 = err;
-          } finally {
-            try {
-              if (!_iteratorNormalCompletion3 && _iterator3.return != null) {
-                _iterator3.return();
-              }
-            } finally {
-              if (_didIteratorError3) {
-                throw _iteratorError3;
-              }
-            }
-          }
-        }
-
-        newLoadState.init = true;
-        newLoadState.filters = filters;
-        return newLoadState;
       }
+
+      var filterTypes = newState.filterTypes;
+      var n = 0;
+      var filters = [];
+
+      if (filterConfig) {
+        var _iteratorNormalCompletion2 = true;
+        var _didIteratorError2 = false;
+        var _iteratorError2 = undefined;
+
+        try {
+          for (var _iterator2 = filterConfig[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+            var fc = _step2.value;
+
+            var _filter = _objectSpread({}, filterTypes[fc.filter], {
+              type: fc.filter,
+              active: fc.active,
+              cond: fc.cond
+            });
+
+            if (fc.filter >= 0 && fc.filter < filterTypes.length && Array.isArray(filterTypes[fc.filter].variants) && filterTypes[fc.filter].variants.length > 0 && !(fc.value >= 0 && fc.value < filterTypes[fc.filter].variants.length)) {
+              _filter.value = filterTypes[fc.filter].variants[0].value;
+            } else {
+              _filter.value = fc.value;
+            }
+
+            _filter.token = filterTypes[fc.filter].token;
+            _filter.having = filterTypes[fc.filter].having;
+            _filter.date = filterTypes[fc.filter].date;
+            _filter.like = filterTypes[fc.filter].like;
+            _filter.variants = filterTypes[fc.filter].variants;
+            filters.push(_filter);
+            n++;
+          }
+        } catch (err) {
+          _didIteratorError2 = true;
+          _iteratorError2 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion2 && _iterator2.return != null) {
+              _iterator2.return();
+            }
+          } finally {
+            if (_didIteratorError2) {
+              throw _iteratorError2;
+            }
+          }
+        }
+
+        for (n; n < filters.length; n++) {
+          var config = filterTypes[n];
+          var bf = filters[n];
+          bf.token = config.token;
+          bf.having = !!config.having;
+          bf.date = !!config.date;
+          bf.like = !!config.like;
+          bf.variants = config.variants;
+        }
+      } else {
+        filters = newState.filters;
+        var _iteratorNormalCompletion3 = true;
+        var _didIteratorError3 = false;
+        var _iteratorError3 = undefined;
+
+        try {
+          for (var _iterator3 = filters[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+            var f = _step3.value;
+            var _config = filterTypes[f.type];
+
+            if (_config.cond) {
+              if (f.cond === undefined) {
+                f.cond = '=';
+              }
+            }
+
+            if (_config.variants && Array.isArray(_config.variants) && _config.variants.length > 0) {
+              if (!(f.value >= 0 && f.value < _config.variants.length)) {
+                f.value = _config.variants[0].value;
+              }
+
+              f.variants = _config.variants;
+            } else if (_config.date) {
+              var _date = new Date();
+
+              f.value = _date.toLocaleDateString('ru');
+            } else if (_config.number) {
+              f.value = 0;
+            } else {
+              f.value = '';
+            }
+
+            f.token = _config.token;
+            f.having = !!_config.having;
+            f.like = !!_config.like;
+            f.date = !!_config.date;
+          }
+        } catch (err) {
+          _didIteratorError3 = true;
+          _iteratorError3 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion3 && _iterator3.return != null) {
+              _iterator3.return();
+            }
+          } finally {
+            if (_didIteratorError3) {
+              throw _iteratorError3;
+            }
+          }
+        }
+      }
+
+      newState.init = true;
+      newState.filters = filters;
+      break;
 
     case name.toUpperCase() + '_LOAD_DETAIL_REQ':
-      {
-        if (pl.entity === name) {
-          var _newState5 = _objectSpread({}, state);
-
-          _newState5.loadDetail = true;
-          _newState5.loadDetailErr = false;
-          return _newState5;
-        } else {
-          return state;
-        }
+      if (pl.entity === name) {
+        newState = _objectSpread({}, state);
+        newState.loadDetail = true;
+        newState.loadDetailErr = false;
       }
+
+      break;
 
     case name.toUpperCase() + '_LOAD_DETAIL_DONE':
-      {
-        if (pl.entity === name) {
-          var _newState6 = _objectSpread({}, state);
-
-          _newState6.load = false;
-          _newState6.loadErr = false;
-          _newState6.loadDetail = false;
-          _newState6.selectedItem = pl.data;
-          _newState6.selectedItem.checked = 0;
-          return _newState6;
-        } else {
-          return state;
-        }
+      if (pl.entity === name) {
+        newState = _objectSpread({}, state);
+        newState.load = false;
+        newState.loadErr = false;
+        newState.loadDetail = false;
+        newState.selectedItem = pl.data;
+        newState.selectedItem.checked = 0;
       }
+
+      break;
 
     case name.toUpperCase() + '_LOAD_DETAIL_ERR':
-      {
-        if (pl.entity === name) {
-          var _newState7 = _objectSpread({}, state);
-
-          _newState7.loadDetail = false;
-          _newState7.loadDetailErr = true;
-          return _newState7;
-        } else {
-          return state;
-        }
+      if (pl.entity === name) {
+        newState = _objectSpread({}, state);
+        newState.loadDetail = false;
+        newState.loadDetailErr = true;
       }
 
-    default:
-      if (typeof selectedItemReducer === 'function' && pl.entity === name) {
-        var _newState8 = _objectSpread({}, state);
-
-        _newState8.selectedItem = _objectSpread({}, state.selectedItem);
-        var selectedName;
-
-        if (name[name.length - 1] === 's') {
-          selectedName = name.substr(0, name.length - 1);
-        } else {
-          selectedName = name;
-        }
-
-        _newState8.selectedItem[selectedName] = selectedItemReducer(state.selectedItem[selectedName], action);
-        return _newState8;
-      }
-
-      return state;
+      break;
   }
+
+  if (typeof selectedItemReducer === 'function') {
+    if (newState === state) {
+      newState = _objectSpread({}, state);
+    }
+
+    newState.selectedItem = _objectSpread({}, state.selectedItem);
+    var selectedName;
+
+    if (name[name.length - 1] === 's') {
+      selectedName = name.substr(0, name.length - 1);
+    } else {
+      selectedName = name;
+    }
+
+    newState.selectedItem[selectedName] = selectedItemReducer(state.selectedItem[selectedName], action);
+  }
+
+  return newState;
 }
