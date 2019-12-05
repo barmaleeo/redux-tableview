@@ -390,7 +390,7 @@ function tableViewReducer(name) {
       selectedName = name;
     }
 
-    newState.selectedItem[selectedName] = selectedItemReducer(state.selectedItem[selectedName], action);
+    newState.selectedItem[selectedName] = selectedItemReducer(newState.selectedItem[selectedName], action);
   }
 
   return newState;

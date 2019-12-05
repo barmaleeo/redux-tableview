@@ -235,7 +235,7 @@ export default function tableViewReducer(name, state = initialState, action, sel
         }else{
             selectedName = name;
         }
-        newState.selectedItem[selectedName] =  selectedItemReducer(state.selectedItem[selectedName], action);
+        newState.selectedItem[selectedName] =  selectedItemReducer(newState.selectedItem[selectedName], action);
 
     }
 
