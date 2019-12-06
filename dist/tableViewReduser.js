@@ -86,9 +86,8 @@ function tableViewReducer(name) {
 
     case TV.TABLEVIEW_SET_FILTER_ACTIVE:
       if (pl.entity === name) {
-        var _newState = _objectSpread({}, state);
-
-        _newState.filters[pl.id] = _objectSpread({}, _newState.filters[pl.id], {
+        newState = _objectSpread({}, state);
+        newState.filters[pl.id] = _objectSpread({}, newState.filters[pl.id], {
           active: pl.value
         });
       }
@@ -97,9 +96,8 @@ function tableViewReducer(name) {
 
     case TV.TABLEVIEW_SET_FILTER_VALUE:
       if (pl.entity === name) {
-        var _newState2 = _objectSpread({}, state);
-
-        _newState2.filters[pl.id] = _objectSpread({}, _newState2.filters[pl.id], {
+        newState = _objectSpread({}, state);
+        newState.filters[pl.id] = _objectSpread({}, newState.filters[pl.id], {
           value: pl.value
         });
       }
@@ -109,16 +107,16 @@ function tableViewReducer(name) {
     case TV.TABLEVIEW_SET_ROW_CHECKED:
       {
         if (pl.entity === name) {
-          var _newState3 = _objectSpread({}, state);
+          newState = _objectSpread({}, state);
 
           if (parseInt(pl.id) === 0) {
-            _newState3.items = state.items.slice();
+            newState.items = state.items.slice();
             var _iteratorNormalCompletion = true;
             var _didIteratorError = false;
             var _iteratorError = undefined;
 
             try {
-              for (var _iterator = _newState3.items[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+              for (var _iterator = newState.items[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
                 var i = _step.value;
                 i.checked = pl.checked;
               }
@@ -137,7 +135,7 @@ function tableViewReducer(name) {
               }
             }
           } else {
-            _newState3.items[pl.id] = _objectSpread({}, _newState3.items[pl.id], {
+            newState.items[pl.id] = _objectSpread({}, newState.items[pl.id], {
               checked: pl.checked
             });
           }
@@ -149,9 +147,8 @@ function tableViewReducer(name) {
     case TV.TABLEVIEW_SET_FILTER_COND:
       {
         if (pl.entity === name) {
-          var _newState4 = _objectSpread({}, state);
-
-          _newState4.filters[pl.id] = _objectSpread({}, _newState4.filters[pl.id], {
+          newState = _objectSpread({}, state);
+          newState.filters[pl.id] = _objectSpread({}, newState.filters[pl.id], {
             cond: pl.cond
           });
         }
@@ -163,7 +160,7 @@ function tableViewReducer(name) {
       {
         if (pl.entity === name) {
           //console.log(pl, state);
-          var _newState5 = _objectSpread({}, state);
+          var _newState = _objectSpread({}, state);
 
           var filter = _objectSpread({}, pl.filter);
 
@@ -188,7 +185,7 @@ function tableViewReducer(name) {
             filter.value = '';
           }
 
-          _newState5.filters[pl.id] = filter;
+          _newState.filters[pl.id] = filter;
         }
 
         break;
@@ -378,7 +375,7 @@ function tableViewReducer(name) {
 
   if (typeof selectedItemReducer === 'function') {
     if (newState === state) {
-      newState = _objectSpread({}, state);
+      newState = _objectSpread({}, newState);
     }
 
     newState.selectedItem = _objectSpread({}, state.selectedItem);

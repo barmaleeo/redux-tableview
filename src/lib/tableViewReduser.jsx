@@ -46,20 +46,20 @@ export default function tableViewReducer(name, state = initialState, action, sel
 
         case TV.TABLEVIEW_SET_FILTER_ACTIVE:
             if(pl.entity === name) {
-                const newState = {...state};
+                newState = {...state};
                 newState.filters[pl.id] = {...newState.filters[pl.id], active:pl.value};
             }
             break;
         case TV.TABLEVIEW_SET_FILTER_VALUE:
             if(pl.entity === name) {
-                const newState = {...state};
+                newState = {...state};
                 newState.filters[pl.id] = {...newState.filters[pl.id], value: pl.value};
 
             }
             break;
         case TV.TABLEVIEW_SET_ROW_CHECKED:{
             if(pl.entity === name) {
-                const newState = {...state};
+                newState = {...state};
                 if(parseInt(pl.id) === 0){
                     newState.items = state.items.slice();
                     for(const i of newState.items){
@@ -73,7 +73,7 @@ export default function tableViewReducer(name, state = initialState, action, sel
         }
         case TV.TABLEVIEW_SET_FILTER_COND:{
             if(pl.entity === name) {
-                const newState = {...state};
+                newState = {...state};
                 newState.filters[pl.id] = {...newState.filters[pl.id], cond: pl.cond};
             }
             break;
@@ -224,10 +224,11 @@ export default function tableViewReducer(name, state = initialState, action, sel
     }
 
     if(typeof selectedItemReducer === 'function'){
-        if(newState === state){
-            newState = {...state}
-        }
 
+        if(newState === state) {
+            newState = {...newState};
+        }
+        
         newState.selectedItem = {...state.selectedItem};
         let selectedName;
         if(name[name.length-1] === 's'){
