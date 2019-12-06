@@ -378,7 +378,10 @@ function tableViewReducer(name) {
       newState = _objectSpread({}, newState);
     }
 
-    newState.selectedItem = _objectSpread({}, state.selectedItem);
+    if (newState.selectedItem === state.selectedItem) {
+      newState.selectedItem = _objectSpread({}, state.selectedItem);
+    }
+
     var selectedName;
 
     if (name[name.length - 1] === 's') {

@@ -229,7 +229,9 @@ export default function tableViewReducer(name, state = initialState, action, sel
             newState = {...newState};
         }
         
-        newState.selectedItem = {...state.selectedItem};
+        if(newState.selectedItem === state.selectedItem){
+            newState.selectedItem = {...state.selectedItem};
+        }
         let selectedName;
         if(name[name.length-1] === 's'){
             selectedName = name.substr(0, name.length-1)
