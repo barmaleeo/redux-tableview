@@ -217,8 +217,8 @@ export default function tableViewReducer(name, state = initialState, action, sel
             break;
         case name.toUpperCase()+'_LOAD_DETAIL_ERR':
             if(pl.entity === name) {
-                newState.showDetail = false;
                 newState = {...state};
+                newState.showDetail = false;
                 newState.loadDetail = false;
                 newState.loadDetailErr = true;
             }

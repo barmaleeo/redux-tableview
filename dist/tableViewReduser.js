@@ -369,8 +369,8 @@ function tableViewReducer(name) {
 
     case name.toUpperCase() + '_LOAD_DETAIL_ERR':
       if (pl.entity === name) {
-        newState.showDetail = false;
         newState = _objectSpread({}, state);
+        newState.showDetail = false;
         newState.loadDetail = false;
         newState.loadDetailErr = true;
       }
