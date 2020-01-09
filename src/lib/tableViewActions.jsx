@@ -20,7 +20,7 @@ export function loadDetail(i, entity, root = 'office'){
     return (dispatch, getState) => {
         const mode = getState()[entity].detailMode;
         dispatch({type:entity.toUpperCase()+'_LOAD_DETAIL_REQ', payload:{entity:entity}});
-        dispatch({type:TV.TABLEVIEW_OPEN_DETAIL, payload:{entity:entity}});
+        //dispatch({type:TV.TABLEVIEW_OPEN_DETAIL, payload:{entity:entity}});
         window.$.get(root+'/get-'+entity+'-detail', {id:i.id, mode:mode}, function(r){
             if(r.status === 'ok'){
                 dispatch({type:entity.toUpperCase()+'_LOAD_DETAIL_DONE', payload:{entity:entity, data:r}});

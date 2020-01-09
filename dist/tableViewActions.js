@@ -57,13 +57,8 @@ function loadDetail(i, entity) {
       payload: {
         entity: entity
       }
-    });
-    dispatch({
-      type: TV.TABLEVIEW_OPEN_DETAIL,
-      payload: {
-        entity: entity
-      }
-    });
+    }); //dispatch({type:TV.TABLEVIEW_OPEN_DETAIL, payload:{entity:entity}});
+
     window.$.get(root + '/get-' + entity + '-detail', {
       id: i.id,
       mode: mode

@@ -345,6 +345,10 @@ function tableViewReducer(name) {
     case name.toUpperCase() + '_LOAD_DETAIL_REQ':
       if (pl.entity === name) {
         newState = _objectSpread({}, state);
+        newState.selectedItem = {
+          checked: 0,
+          items: []
+        };
         newState.loadDetail = true;
         newState.loadDetailErr = false;
       }
@@ -365,6 +369,7 @@ function tableViewReducer(name) {
 
     case name.toUpperCase() + '_LOAD_DETAIL_ERR':
       if (pl.entity === name) {
+        newState.showDetail = false;
         newState = _objectSpread({}, state);
         newState.loadDetail = false;
         newState.loadDetailErr = true;

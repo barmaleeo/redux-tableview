@@ -199,6 +199,7 @@ export default function tableViewReducer(name, state = initialState, action, sel
         case name.toUpperCase()+'_LOAD_DETAIL_REQ':
             if(pl.entity === name) {
                 newState = {...state};
+                newState.selectedItem = {checked:0, items:[]};
                 newState.loadDetail = true;
                 newState.loadDetailErr = false;
             }
@@ -216,6 +217,7 @@ export default function tableViewReducer(name, state = initialState, action, sel
             break;
         case name.toUpperCase()+'_LOAD_DETAIL_ERR':
             if(pl.entity === name) {
+                newState.showDetail = false;
                 newState = {...state};
                 newState.loadDetail = false;
                 newState.loadDetailErr = true;
