@@ -345,6 +345,7 @@ function tableViewReducer(name) {
     case name.toUpperCase() + '_LOAD_DETAIL_REQ':
       if (pl.entity === name) {
         newState = _objectSpread({}, state);
+        newState.showDetail = true;
         newState.selectedItem = {
           checked: 0,
           items: []
