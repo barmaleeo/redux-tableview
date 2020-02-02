@@ -390,7 +390,9 @@ function tableViewReducer(name) {
 
     var selectedName;
 
-    if (name[name.length - 1] === 's') {
+    if (name.length > 4 && name.substr(name.length - 3, 3) === 'ies') {
+      selectedName = name.substr(0, name.length - 3) + 'y';
+    } else if (name[name.length - 1] === 's') {
       selectedName = name.substr(0, name.length - 1);
     } else {
       selectedName = name;
