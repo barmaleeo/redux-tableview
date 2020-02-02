@@ -122,7 +122,7 @@ export default class TableViewComponent extends Component{
                         <div className="tv-table">
                             {e.showCustom > 0 && this.config.customMode === 'tableTop' && this.renderCustom(e)}
                             <div className="table-scroll">
-                                <table className="table table-bordered table-condensed">
+                                <table className="table table-sm table-bordered table-condensed">
                                     <tbody>
                                     {e.items.map((i, k) => this.renderRow(i, k))}
                                     </tbody>

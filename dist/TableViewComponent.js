@@ -237,7 +237,7 @@ function (_Component) {
       }, e.showCustom > 0 && this.config.customMode === 'tableTop' && this.renderCustom(e), _react.default.createElement("div", {
         className: "table-scroll"
       }, _react.default.createElement("table", {
-        className: "table table-bordered table-condensed"
+        className: "table table-sm table-bordered table-condensed"
       }, _react.default.createElement("tbody", null, e.items.map(function (i, k) {
         return _this2.renderRow(i, k);
       }))), e.loading && _react.default.createElement("div", {
