@@ -43,6 +43,11 @@ class TableView extends TableViewComponent {
                 <td>{n}</td>
                 <td>{item.id}</td>
                 <td>{item.name}</td>
+                <td className="tv-r-checker" onClick={this.handleClickDummy}>
+                    <input type="checkbox" checked={!!item.checked}
+                           onChange={this.handleClickChecked.bind(this, n, !item.checked)}/>
+                </td>
+
             </tr>
         )
     }
