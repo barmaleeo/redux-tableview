@@ -250,10 +250,10 @@ function (_Component) {
         value: limit
       })), _react.default.createElement("fieldset", null, _react.default.createElement("legend", null, "\u0412\u044B\u0431\u0440\u0430\u043D\u043E (", checked, " \u0437\u0430\u043F\u0438\u0441\u0435\u0439)"), _react.default.createElement("div", null, _react.default.createElement("button", {
         className: "btn btn-sm btn-primary",
-        onClick: this.props.tva.setChecked.bind(this, this.config.entity, 0, true)
+        onClick: this.props.tva.setChecked.bind(this, this.config.entity, -1, true)
       }, "\u0432\u044B\u0431\u0440\u0430\u0442\u044C \u0432\u0441\u0435"), _react.default.createElement("button", {
         className: "btn btn-sm btn-primary",
-        onClick: this.props.tva.setChecked.bind(this, this.config.entity, 0, false)
+        onClick: this.props.tva.setChecked.bind(this, this.config.entity, -1, false)
       }, "\u043E\u0442\u043C\u0435\u043D\u0438\u0442\u044C \u0432\u0441\u0435"))), _react.default.createElement("fieldset", null, _react.default.createElement("legend", null, "\u0424\u0438\u043B\u044C\u0442\u0440\u044B"), e.filters.map(function (f, k) {
         return _react.default.createElement(_FilterElement.default, {
           filter: f,

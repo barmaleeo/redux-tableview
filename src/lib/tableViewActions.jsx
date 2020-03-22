@@ -8,8 +8,8 @@ export function closeDetail(entity){
     return {type:TV.TABLEVIEW_CLOSE_DETAIL, payload:{entity:entity}}
 }
 
-export function openDetail(entity){
-    return {type:TV.TABLEVIEW_OPEN_DETAIL, payload:{entity:entity}}
+export function openDetail(entity, mode){
+    return {type:TV.TABLEVIEW_OPEN_DETAIL, payload:{entity:entity, mode:mode}}
 }
 
 export function setCustom(entity, id){

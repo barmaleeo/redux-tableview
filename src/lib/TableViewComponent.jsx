@@ -141,11 +141,11 @@ export default class TableViewComponent extends Component{
                                 <legend>Выбрано ({checked} записей)</legend>
                                 <div>
                                     <button className="btn btn-sm btn-primary"
-                                            onClick={this.props.tva.setChecked.bind(this, this.config.entity, 0, true)}>
+                                            onClick={this.props.tva.setChecked.bind(this, this.config.entity, -1, true)}>
                                         выбрать все
                                     </button>
                                     <button className="btn btn-sm btn-primary"
-                                            onClick={this.props.tva.setChecked.bind(this, this.config.entity, 0, false)}>
+                                            onClick={this.props.tva.setChecked.bind(this, this.config.entity, -1, false)}>
                                         отменить все
                                     </button>
                                 </div>

@@ -60,14 +60,14 @@ export default function tableViewReducer(name, state = initialState, action, sel
         case TV.TABLEVIEW_SET_ROW_CHECKED:{
             if(pl.entity === name) {
                 newState = {...state};
-                // if(parseInt(pl.id) === 0){
-                //     newState.items = state.items.slice();
-                //     for(const i of newState.items){
-                //         i.checked = pl.checked;
-                //     }
-                // }else {
+                if(parseInt(pl.id) === -1){
+                    newState.items = state.items.slice();
+                    for(const i of newState.items){
+                        i.checked = pl.checked;
+                    }
+                }else {
                     newState.items[pl.id] = {...newState.items[pl.id], checked: pl.checked};
-                // }
+                }
             }
             break;
         }
@@ -108,7 +108,7 @@ export default function tableViewReducer(name, state = initialState, action, sel
         }
         case TV.TABLEVIEW_OPEN_DETAIL:
             if(pl.entity === name) {
-                newState = {...state, showDetail:true};
+                newState = {...state, showDetail:true, detailMode:parseInt(pl.mode)?pl.mode:0};
             }
             break;
         case TV.TABLEVIEW_CLOSE_DETAIL:

@@ -29,11 +29,12 @@ function closeDetail(entity) {
   };
 }
 
-function openDetail(entity) {
+function openDetail(entity, mode) {
   return {
     type: TV.TABLEVIEW_OPEN_DETAIL,
     payload: {
-      entity: entity
+      entity: entity,
+      mode: mode
     }
   };
 }
