@@ -246,6 +246,11 @@ export default function tableViewReducer(name, state = initialState, action, sel
         newState.selectedItem[selectedName] =  selectedItemReducer(newState.selectedItem[selectedName], action);
 
     }else if(typeof selectedItemReducer === 'object'){
+
+        if(newState === state) {
+            newState = {...newState};
+        }
+
         let changed = false;
         for(let key in selectedItemReducer){
             if(selectedItemReducer.hasOwnProperty(key)) {

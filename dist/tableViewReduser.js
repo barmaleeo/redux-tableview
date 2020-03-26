@@ -403,6 +403,10 @@ function tableViewReducer(name) {
 
     newState.selectedItem[selectedName] = selectedItemReducer(newState.selectedItem[selectedName], action);
   } else if (_typeof(selectedItemReducer) === 'object') {
+    if (newState === state) {
+      newState = _objectSpread({}, newState);
+    }
+
     var changed = false;
 
     for (var key in selectedItemReducer) {
