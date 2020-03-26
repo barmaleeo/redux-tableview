@@ -247,11 +247,13 @@ export default function tableViewReducer(name, state = initialState, action, sel
 
     }else if(typeof selectedItemReducer === 'object'){
         let changed = false;
-        for(let key of selectedItemReducer){
-            const keyState = selectedItemReducer[key](newState.selectedItem[key], action);
-            if(newState.selectedItem[key] !== keyState){
-                newState.selectedItem[key] = keyState;
-                changed = true;
+        for(let key in selectedItemReducer){
+            if(selectedItemReducer.hasOwnProperty(key)) {
+                const keyState = selectedItemReducer[key](newState.selectedItem[key], action);
+                if (newState.selectedItem[key] !== keyState) {
+                    newState.selectedItem[key] = keyState;
+                    changed = true;
+                }
             }
         }
         if(changed){
