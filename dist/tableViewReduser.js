@@ -414,14 +414,14 @@ function tableViewReducer(name) {
         var keyState = selectedItemReducer[key](newState.selectedItem[key], action);
 
         if (newState.selectedItem[key] !== keyState) {
+          if (!changed) {
+            newState.selectedItem = _objectSpread({}, newState.selectedItem);
+            changed = true;
+          }
+
           newState.selectedItem[key] = keyState;
-          changed = true;
         }
       }
-    }
-
-    if (changed) {
-      newState.selectedItem = _objectSpread({}, newState.selectedItem);
     }
   }
 

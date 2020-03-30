@@ -256,13 +256,13 @@ export default function tableViewReducer(name, state = initialState, action, sel
             if(selectedItemReducer.hasOwnProperty(key)) {
                 const keyState = selectedItemReducer[key](newState.selectedItem[key], action);
                 if (newState.selectedItem[key] !== keyState) {
+                    if(!changed){
+                        newState.selectedItem = {...newState.selectedItem};
+                        changed = true;
+                    }
                     newState.selectedItem[key] = keyState;
-                    changed = true;
                 }
             }
-        }
-        if(changed){
-            newState.selectedItem = {...newState.selectedItem};
         }
     }
 
