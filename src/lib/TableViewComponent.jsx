@@ -27,15 +27,15 @@ export default class TableViewComponent extends Component{
     componentWillUnmount(){
         console.log(this.config.entity + ' will unmount');
     }
-    handleClickRow = (i,k) => {
+    handleClickRow = (i,k, params) => {
         console.log(i,k);
         this.currentDetail = i.id;
-        this.props.tva.loadDetail(i, this.config.entity, this.config.root)
+        this.props.tva.loadDetail(i, this.config.entity, this.config.root, params)
 
     };
-    reloadDetail = () => {
+    reloadDetail = (params) => {
         if(this.props.tva) {
-            this.props.tva.loadDetail({id: this.currentDetail}, this.config.entity, this.config.root)
+            this.props.tva.loadDetail({id: this.currentDetail}, this.config.entity, this.config.root, params)
         }
     };
     reload = () => {

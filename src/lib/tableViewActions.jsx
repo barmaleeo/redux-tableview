@@ -16,12 +16,12 @@ export function setCustom(entity, id){
     return {type:TV.TABLEVIEW_SET_CUSTOM, payload:{entity:entity, id:id}}
 }
 
-export function loadDetail(i, entity, root = 'office'){
+export function loadDetail(i, entity, root = 'office', params = {}){
     return (dispatch, getState) => {
         const mode = getState()[entity].detailMode;
         dispatch({type:entity.toUpperCase()+'_LOAD_DETAIL_REQ', payload:{entity:entity}});
         //dispatch({type:TV.TABLEVIEW_OPEN_DETAIL, payload:{entity:entity}});
-        window.$.get(root+'/get-'+entity+'-detail', {id:i.id, mode:mode}, function(r){
+        window.$.get(root+'/get-'+entity+'-detail', {id:i.id, mode:mode, params:params}, function(r){
             if(r.status === 'ok'){
                 dispatch({type:entity.toUpperCase()+'_LOAD_DETAIL_DONE', payload:{entity:entity, data:r}});
             }else{

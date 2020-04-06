@@ -55,18 +55,18 @@ function (_Component) {
 
     _defineProperty(_assertThisInitialized(_this), "currentDetail", 0);
 
-    _defineProperty(_assertThisInitialized(_this), "handleClickRow", function (i, k) {
+    _defineProperty(_assertThisInitialized(_this), "handleClickRow", function (i, k, params) {
       console.log(i, k);
       _this.currentDetail = i.id;
 
-      _this.props.tva.loadDetail(i, _this.config.entity, _this.config.root);
+      _this.props.tva.loadDetail(i, _this.config.entity, _this.config.root, params);
     });
 
-    _defineProperty(_assertThisInitialized(_this), "reloadDetail", function () {
+    _defineProperty(_assertThisInitialized(_this), "reloadDetail", function (params) {
       if (_this.props.tva) {
         _this.props.tva.loadDetail({
           id: _this.currentDetail
-        }, _this.config.entity, _this.config.root);
+        }, _this.config.entity, _this.config.root, params);
       }
     });
 
