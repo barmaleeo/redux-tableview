@@ -51,7 +51,6 @@ function setCustom(entity, id) {
 
 function loadDetail(i, entity) {
   var root = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'office';
-  var params = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
   return function (dispatch, getState) {
     var mode = getState()[entity].detailMode;
     dispatch({

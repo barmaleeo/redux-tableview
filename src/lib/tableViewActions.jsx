@@ -16,7 +16,7 @@ export function setCustom(entity, id){
     return {type:TV.TABLEVIEW_SET_CUSTOM, payload:{entity:entity, id:id}}
 }
 
-export function loadDetail(i, entity, root = 'office', params = {}){
+export function loadDetail(i, entity, root = 'office'){
     return (dispatch, getState) => {
         const mode = getState()[entity].detailMode;
         dispatch({type:entity.toUpperCase()+'_LOAD_DETAIL_REQ', payload:{entity:entity}});
