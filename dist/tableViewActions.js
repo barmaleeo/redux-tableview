@@ -63,8 +63,7 @@ function loadDetail(i, entity) {
 
     window.$.get(root + '/get-' + entity + '-detail', {
       id: i.id,
-      mode: mode,
-      params: params
+      mode: mode
     }, function (r) {
       if (r.status === 'ok') {
         dispatch({
