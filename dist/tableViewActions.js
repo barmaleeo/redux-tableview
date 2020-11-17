@@ -204,6 +204,7 @@ function reload(entity, filtersArray, limit) {
 
           if (f.date === true) {
             filter.date = true;
+            filter.timezone = -(new Date().getTimezoneOffset() / 60);
             var date = f.value.split('.');
 
             if (date.length === 3) {

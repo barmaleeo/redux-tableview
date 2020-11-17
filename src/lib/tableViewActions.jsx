@@ -84,6 +84,7 @@ export function reload(entity, filtersArray, limit, root = 'office', loadParams)
                 }
                 if(f.date === true){
                     filter.date = true;
+                    filter.timezone = -(new Date().getTimezoneOffset()/60);
 
                     const date = f.value.split('.');
                     if(date.length === 3) {
