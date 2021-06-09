@@ -14,15 +14,5 @@ export default function configureStore(initialState) {
     );
 
     store.dispatch(initActions.init());
-
-    // console.log('configure store entering');
-    // if (module.hot) {
-    //     console.log('hot replace reducers');
-    //     let accept = module.hot.accept('indexReducer', () => {
-    //         console.log('module hot accept callback', accept);
-    //         const nextRootReducer = require('indexReducer');
-    //         store.replaceReducer(nextRootReducer.default);
-    //     });
-    // }
     return store;
 }
