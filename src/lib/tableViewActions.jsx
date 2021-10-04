@@ -1,5 +1,6 @@
 
 import * as TV from './tableViewConstants'
+import TableViewComponent from "./TableViewComponent";
 
 //import {cDate, mysqld} from './dateHelper'
 
@@ -19,9 +20,17 @@ export function setCustom(entity, id){
 export function loadDetail(i, entity, root = 'office'){
     return (dispatch, getState) => {
         const mode = getState()[entity].detailMode;
-        dispatch({type:entity.toUpperCase()+'_LOAD_DETAIL_REQ', payload:{entity:entity}});
+        dispatch({type:entity.toUpperCase()+'_LOAD_DETAIL_REQ', payload:{entity:entity,}});
+        let id;
+        if(Array.isArray(i)){
+            id = i;
+        }else if(typeof i === 'object'){
+            id = i.id;
+        }else{
+            id = i;
+        }
         //dispatch({type:TV.TABLEVIEW_OPEN_DETAIL, payload:{entity:entity}});
-        window.$.get(root+'/get-'+entity+'-detail', {id:i.id, mode:mode}, function(r){
+        window.$.get(root+'/get-'+entity+'-detail', {id:id, mode:mode}, function(r){
             if(r.status === 'ok'){
                 dispatch({type:entity.toUpperCase()+'_LOAD_DETAIL_DONE', payload:{entity:entity, data:r}});
             }else{
@@ -96,11 +105,17 @@ export function reload(entity, filtersArray, limit, root = 'office', loadParams)
                 filters.push(filter)
             }
         }
-
+        const params = {filters:filters, limit:limit, params:loadParams};
+        if(typeof TableViewComponent.beforeReload === 'function'){
+            TableViewComponent.beforeReload(params)
+        }
         dispatch({type:TV.TABLEVIEW_RELOAD_REQ, payload:{entity:entity}});
         window.$.get(root+'/get-'+entity.toLowerCase()+'-table',
-            {filters:filters, limit:limit, params:loadParams}, function(r) {
+            params, function(r) {
             if(r.status === 'ok'){
+                if(typeof TableViewComponent.onReloadSuccess === 'function'){
+                    TableViewComponent.onReloadSuccess(params, r)
+                }
                 dispatch({type:TV.TABLEVIEW_RELOAD_DONE, payload:{entity:entity, items:r.items, params:loadParams}});
             }else{
                 dispatch({type:TV.TABLEVIEW_RELOAD_ERR, payload:{entity:entity, msg:r.msg, params:loadParams}});

@@ -1,4 +1,5 @@
-import * as TV from './tableViewConstants'; //import {cDate, mysqld} from './dateHelper'
+import * as TV from './tableViewConstants';
+import TableViewComponent from "./TableViewComponent"; //import {cDate, mysqld} from './dateHelper'
 
 export function closeDetail(entity) {
   return {
@@ -34,10 +35,20 @@ export function loadDetail(i, entity, root = 'office') {
       payload: {
         entity: entity
       }
-    }); //dispatch({type:TV.TABLEVIEW_OPEN_DETAIL, payload:{entity:entity}});
+    });
+    let id;
+
+    if (Array.isArray(i)) {
+      id = i;
+    } else if (typeof i === 'object') {
+      id = i.id;
+    } else {
+      id = i;
+    } //dispatch({type:TV.TABLEVIEW_OPEN_DETAIL, payload:{entity:entity}});
+
 
     window.$.get(root + '/get-' + entity + '-detail', {
-      id: i.id,
+      id: id,
       mode: mode
     }, function (r) {
       if (r.status === 'ok') {
@@ -179,18 +190,28 @@ export function reload(entity, filtersArray, limit, root = 'office', loadParams)
       }
     }
 
+    const params = {
+      filters: filters,
+      limit: limit,
+      params: loadParams
+    };
+
+    if (typeof TableViewComponent.beforeReload === 'function') {
+      TableViewComponent.beforeReload(params);
+    }
+
     dispatch({
       type: TV.TABLEVIEW_RELOAD_REQ,
       payload: {
         entity: entity
       }
     });
-    window.$.get(root + '/get-' + entity.toLowerCase() + '-table', {
-      filters: filters,
-      limit: limit,
-      params: loadParams
-    }, function (r) {
+    window.$.get(root + '/get-' + entity.toLowerCase() + '-table', params, function (r) {
       if (r.status === 'ok') {
+        if (typeof TableViewComponent.onReloadSuccess === 'function') {
+          TableViewComponent.onReloadSuccess(params, r);
+        }
+
         dispatch({
           type: TV.TABLEVIEW_RELOAD_DONE,
           payload: {
